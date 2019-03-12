@@ -37,13 +37,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 
-app.get('/', function(req, res) {
+app.get('/api/getdata', function(req, res) {
     console.log("hello 3001")
      TestSchema.find({}, (err, data) => {
         if(err){
             console.log(err)
         }else{
-            console.log("server side "  + data)
+            // console.log("server side "  + data)
             return res.json({success: true, data: data}); 
         }
     })
