@@ -56,23 +56,39 @@ app.get('/api/getdata', function(req, res) {
     const client_id = "CJAEUX1GMIBXVPPWDHUEZ3GCRJHJJV1NSMI1RAGBFD0WFXA4"
     const client_secret = "5WJC4UHCVN2XCBSN51U00RJ4YWRUPOB3U4IBKCPJDXPB4WMC"
     var data = null;
+    // request({
+    //     url: 'https://api.foursquare.com/v2/venues/explore',
+    //     method: 'GET',
+    //     qs: {
+    //       client_id: client_id,
+    //       client_secret: client_secret,
+    //       ll: '40.7243,-74.0018',
+    //       query: queryString,
+    //       v: '20180323',
+    //       limit: 1
+    //     }
+    // }
     request({
-        url: 'https://api.foursquare.com/v2/venues/explore',
+        url: 'https://api.foursquare.com/v2/venues/search',
         method: 'GET',
-        qs: {
-          client_id: client_id,
-          client_secret: client_secret,
-          ll: '40.7243,-74.0018',
-          query: queryString,
-          v: '20180323',
-          limit: 1
-        }
-    }, function(error, request, body) { 
+            qs: {
+            client_id: client_id,
+            client_secret: client_secret,
+            near: 'Chicago, IL' ,
+            query: queryString,
+            v: '20180323',
+            limit: 5
+            }
+    }
+    ,function(error, request, body) { 
             if (error) {
                 console.error(error);
             } else {
-                // console.log(body);
-                res.send(JSON.parse(body)["response"]["groups"])
+                // console.log( JSON.parse(body)["response"]["groups"][0]["items"][0]["venue"]["name"]);
+                // res.send(JSON.parse(body)["response"]["groups"][0]["items"]["venue"])
+
+                res.send(JSON.parse(body)["response"]["venues"])
+                // console.log(body)
             }
         }
     );
@@ -81,10 +97,11 @@ app.get('/api/getdata', function(req, res) {
 
 app.post("/api/postdata", function(req,res){
     console.log("posting data ... ")
-    var newData = {
-        "owner": "benson",
-        "title": "olive juice"
-    }
+    console.log(res)
+    // var newData = {
+    //     "owner": "benson",
+    //     "title": "olive juice"
+    // }
     // TestSchema.create(newData, function(err, postedData){
     //     if(err){
     //         console.log(err);   
