@@ -42,62 +42,46 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/api/getdata', function(req, res) {
     console.log("hello 3001 getting data")
-    //  TestSchema.find({}, (err, data) => {
-    //     if(err){
-    //         console.log(err)
-    //     }else{
-    //         // console.log("server side "  + data)
-    //         return res.json({success: true, data: data}); 
-    //     }
-    // })
-
+    // console.log(req.query)
     //foursquare api
-    var queryString = "coffee"
+    var queryString = req.query.input
+    // var queryString = "coffee"
     const client_id = "CJAEUX1GMIBXVPPWDHUEZ3GCRJHJJV1NSMI1RAGBFD0WFXA4"
     const client_secret = "5WJC4UHCVN2XCBSN51U00RJ4YWRUPOB3U4IBKCPJDXPB4WMC"
-    var data = null;
-    // request({
-    //     url: 'https://api.foursquare.com/v2/venues/explore',
-    //     method: 'GET',
-    //     qs: {
-    //       client_id: client_id,
-    //       client_secret: client_secret,
-    //       ll: '40.7243,-74.0018',
-    //       query: queryString,
-    //       v: '20180323',
-    //       limit: 1
-    //     }
-    // }
-    request({
-        url: 'https://api.foursquare.com/v2/venues/search',
-        method: 'GET',
-            qs: {
-            client_id: client_id,
-            client_secret: client_secret,
-            near: 'Chicago, IL' ,
-            query: queryString,
-            v: '20180323',
-            limit: 5
-            }
-    }
-    ,function(error, request, body) { 
-            if (error) {
-                console.error(error);
-            } else {
-                // console.log( JSON.parse(body)["response"]["groups"][0]["items"][0]["venue"]["name"]);
-                // res.send(JSON.parse(body)["response"]["groups"][0]["items"]["venue"])
-
-                res.send(JSON.parse(body)["response"]["venues"])
-                // console.log(body)
-            }
+    console.log(queryString)
+    if(queryString !== undefined){
+        request({
+            url: 'https://api.foursquare.com/v2/venues/search',
+            method: 'GET',
+                qs: {
+                client_id: client_id,
+                client_secret: client_secret,
+                near: 'Chicago, IL' ,
+                query: queryString,
+                v: '20180323',
+                limit: 10
+                }
         }
-    );
+        ,function(error, request, body) { 
+                if (error) {
+                    console.error(error);
+                } else {
+                    // console.log(JSON.parse(body)["response"]["venues"])
+                    console.log("server sending back json ...")
+                    res.send(JSON.parse(body)["response"]["venues"])
+                }
+            }
+        );
+    }else{
+        res.send("Error")
+    }
 
 });
 
 app.post("/api/postdata", function(req,res){
     console.log("posting data ... ")
-    console.log(res)
+    // console.log(res)
+    console.log(req.body["input"])
     // var newData = {
     //     "owner": "benson",
     //     "title": "olive juice"
@@ -108,7 +92,7 @@ app.post("/api/postdata", function(req,res){
     //     }
     //     console.log("New data posted " + postedData);
     // })
-    res.redirect("/");
+    // res.redirect("/");
 
 })
 
