@@ -3,6 +3,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 
+
+//MODULES
+const venueRoute = require("./api/venue");
+
 const cors = require('cors');
 
 const TestSchema = require("./schema/testSchema")
@@ -12,6 +16,9 @@ const router = express.Router();
 const port = 3001 || process.env.PORT
 
 app.use(cors())
+
+const client_id = "CJAEUX1GMIBXVPPWDHUEZ3GCRJHJJV1NSMI1RAGBFD0WFXA4"
+const client_secret = "5WJC4UHCVN2XCBSN51U00RJ4YWRUPOB3U4IBKCPJDXPB4WMC"
 
 // Set up mongodb
 const dbRoute = "mongodb://haoxian:M)M)club321@ds163905.mlab.com:63905/open_rice"
@@ -40,43 +47,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 
-app.get('/api/getdata', function(req, res) {
-    console.log("hello 3001 getting data")
-    // console.log(req.query)
-    //foursquare api
-    var queryString = req.query.input
-    // var queryString = "coffee"
-    const client_id = "CJAEUX1GMIBXVPPWDHUEZ3GCRJHJJV1NSMI1RAGBFD0WFXA4"
-    const client_secret = "5WJC4UHCVN2XCBSN51U00RJ4YWRUPOB3U4IBKCPJDXPB4WMC"
-    console.log(queryString)
-    if(queryString !== undefined){
-        request({
-            url: 'https://api.foursquare.com/v2/venues/search',
-            method: 'GET',
-                qs: {
-                client_id: client_id,
-                client_secret: client_secret,
-                near: 'Chicago, IL' ,
-                query: queryString,
-                v: '20180323',
-                limit: 10
-                }
-        }
-        ,function(error, request, body) { 
-                if (error) {
-                    console.error(error);
-                } else {
-                    // console.log(JSON.parse(body)["response"]["venues"])
-                    console.log("server sending back json ...")
-                    res.send(JSON.parse(body)["response"]["venues"])
-                }
-            }
-        );
-    }else{
-        res.send("Error")
-    }
+//ROUTE VENUE
+app.use("/api", venueRoute);
 
-});
 
 app.post("/api/postdata", function(req,res){
     console.log("posting data ... ")
@@ -93,7 +66,6 @@ app.post("/api/postdata", function(req,res){
     //     console.log("New data posted " + postedData);
     // })
     // res.redirect("/");
-
 })
 
 app.get("/", function(req, res){
