@@ -52,24 +52,6 @@ router.get('/getdata', function(req, res) {
         );
     }
     
-    var getVenueDetail = function(venue_id){
-        console.log("from get venue detail " + venue_id)
-        request({
-            url: 'https://api.foursquare.com/v2/venues/' + venue_id,
-            method: 'GET',
-                qs: {
-                client_id: client_id,
-                client_secret: client_secret,
-                v: '20180323',
-                VENUE_ID: venue_id
-                }
-        }, function(error , request, body){
-            console.log("getting id")
-            let id = JSON.parse(body)["response"]
-            console.log(id)
-        })
-    }
-    // END GET VENUTE DETAIL
 
     console.log("current query string " + queryString)
     if(queryString !== undefined){
@@ -85,23 +67,25 @@ router.get('/getdata', function(req, res) {
 
 router.get("/venue_detail", function(req, res){
     // console.log("Getting venue photo")
-    let venue_id = "4b79933cf964a52097022fe3"
-    request({
-        url: 'https://api.foursquare.com/v2/venues/' + venue_id,
-        method: 'GET',
-            qs: {
-            client_id: client_id,
-            client_secret: client_secret,
-            v: '20180323',
-            VENUE_ID: venue_id
-            }
-    }, function(error , request, body){
-        // id(pin): "4b79933cf964a52097022fe3"
-        // name(pin): "Bridgeport Coffee Company"
-        // console.log("TESTIN ID 4b79933cf964a52097022fe3 ")
-        // console.log( JSON.parse(body) )
-        res.send(JSON.parse(body))
-    })
+        var venue_id = req.query.venue_id
+        // console.log("from get venue detail " + venue_id)
+        request({
+            url: 'https://api.foursquare.com/v2/venues/' + venue_id,
+            method: 'GET',
+                qs: {
+                client_id: client_id,
+                client_secret: client_secret,
+                v: '20180323',
+                VENUE_ID: venue_id
+                }
+        }, function(error , request, body){
+            console.log("getting id")
+            let venue_details = JSON.parse(body)["response"]
+            // console.log(venue_details)
+            res.send(venue_details)
+        })
+
+    // END GET VENUTE DETAIL
     // https://fastly.4sqi.net/img/general/ + width960 + /3554975_pgsbwDgSJAPrsxKUmcCU9w3yx_xpV71T820XKEG9Kso.jpg
 
     // https://fastly.4sqi.net/img/general/width960/40086548_PHU6G26hLdTtio15g9Hhaj0rgUnXrcig4b0gd7n9TQA.jpg
