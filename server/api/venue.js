@@ -5,8 +5,8 @@ const request = require("request");
 
 const router = express.Router();
 
-var client_id = "CJAEUX1GMIBXVPPWDHUEZ3GCRJHJJV1NSMI1RAGBFD0WFXA4"
-var client_secret = "5WJC4UHCVN2XCBSN51U00RJ4YWRUPOB3U4IBKCPJDXPB4WMC"
+var client_id = "AJJZGK4GMWAL4QUAYG4VEP32SVNWSJRP0SWFZA0HRYOMF3HW"
+var client_secret = "1W52K4CPPW11WZQSMMWNJG1HG3XAU5Q3COMR5RAKZOWUJEZ0"
 
 
 router.get('/getdata', function(req, res) {
@@ -26,7 +26,7 @@ router.get('/getdata', function(req, res) {
                 near: 'Chicago, IL' ,
                 query: queryString,
                 v: '20180323',
-                limit: 10
+                limit: 1
                 }
         }
         ,function(error, request, body) { 
@@ -79,8 +79,8 @@ router.get("/venue_detail", function(req, res){
                 VENUE_ID: venue_id
                 }
         }, function(error , request, body){
-            console.log("getting id")
-            let venue_details = JSON.parse(body)["response"]
+            // console.log("getting id")
+            let venue_details = JSON.parse(body)["response"]["venue"]
             // console.log(venue_details)
             res.send(venue_details)
         })
