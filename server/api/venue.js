@@ -8,13 +8,18 @@ const router = express.Router();
 var client_id = "AJJZGK4GMWAL4QUAYG4VEP32SVNWSJRP0SWFZA0HRYOMF3HW"
 var client_secret = "1W52K4CPPW11WZQSMMWNJG1HG3XAU5Q3COMR5RAKZOWUJEZ0"
 
+// GET DATA// GET DATA// GET DATA
+// GET DATA// GET DATA// GET DATA
+// GET DATA// GET DATA// GET DATA
+
 
 router.get('/getdata', function(req, res) {
     console.log("hello 3001 getting data")
     // console.log(req.query)
     //foursquare api
     var queryString = req.query.input
-
+    var queryArea = req.query.queryArea
+    console.log(req.query)
     var getVenueIds = function(queryString){
 
         request({
@@ -23,7 +28,7 @@ router.get('/getdata', function(req, res) {
                 qs: {
                 client_id: client_id,
                 client_secret: client_secret,
-                near: 'Chicago, IL' ,
+                near: queryArea ,
                 query: queryString,
                 v: '20180323',
                 limit: 1
@@ -43,10 +48,6 @@ router.get('/getdata', function(req, res) {
                     });
                     // console.log(ids)
                     res.send(ids)
-                    // console.log(id)
-                    // console.log(JSON.parse(body)["response"]["venues"])
-                    // res.send(JSON.parse(body)["response"]["venues"])
-                    // getVenueDetail(id)
                 }
             }
         );
@@ -60,15 +61,22 @@ router.get('/getdata', function(req, res) {
         res.send("Error")
     }
 });
+// GET DATA// GET DATA// GET DATA
+// GET DATA// GET DATA// GET DATA
+// GET DATA// GET DATA// GET DATA
+
+
+
+
+
 
 //get venue detail
 // https://api.foursquare.com/v2/venues/VENUE_ID
 
 
 router.get("/venue_detail", function(req, res){
-    // console.log("Getting venue photo")
+    
         var venue_id = req.query.venue_id
-        // console.log("from get venue detail " + venue_id)
         request({
             url: 'https://api.foursquare.com/v2/venues/' + venue_id,
             method: 'GET',
@@ -79,9 +87,7 @@ router.get("/venue_detail", function(req, res){
                 VENUE_ID: venue_id
                 }
         }, function(error , request, body){
-            // console.log("getting id")
             let venue_details = JSON.parse(body)["response"]["venue"]
-            // console.log(venue_details)
             res.send(venue_details)
         })
 
