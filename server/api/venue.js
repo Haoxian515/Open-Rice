@@ -31,7 +31,7 @@ router.get('/getdata', function(req, res) {
                 near: queryArea ,
                 query: queryString,
                 v: '20180323',
-                limit: 1
+                limit: 5
                 }
         }
         ,function(error, request, body) { 
@@ -66,10 +66,6 @@ router.get('/getdata', function(req, res) {
 // GET DATA// GET DATA// GET DATA
 
 
-
-
-
-
 //get venue detail
 // https://api.foursquare.com/v2/venues/VENUE_ID
 
@@ -96,5 +92,11 @@ router.get("/venue_detail", function(req, res){
 
     // https://fastly.4sqi.net/img/general/width960/40086548_PHU6G26hLdTtio15g9Hhaj0rgUnXrcig4b0gd7n9TQA.jpg
 })
+
+
+router.get('/trending', function(req, res) {
+    res.send("trending place holder")
+})
+
 
 module.exports = router;
