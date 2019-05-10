@@ -16,6 +16,7 @@ class Trends extends Component{
                 <img className="trend-img" src={image} 
                     alt={image}
                 />
+                <div className="centered">Venue Name</div>
             </div>
         )
     }

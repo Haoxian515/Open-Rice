@@ -1,8 +1,19 @@
 .trends{
-    width: 23%;
-
+    width: 24.5%;
 }
 
 .trend-img{
     width: 100%;
+}
+
+.centered{
+    color: white;
+    text-align: center;
+    position: relative;
+    top: -10%;
+    left: 50%;
+    font-size: 3vw;
+    transform: translate(-50%, -50%);
+    -webkit-text-stroke: 0.5px black;
+	-webkit-text-fill-color: white;
 }

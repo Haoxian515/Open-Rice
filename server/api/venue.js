@@ -126,7 +126,34 @@ router.get('/getMain', function(req, res) {
 
 
 router.get('/trending', function(req, res) {
-    res.send("trending place holder")
+    // res.send("trending place holder")
+    request({
+        url: 'https://api.foursquare.com/v2/venues/trending',
+        method: 'GET',
+            qs: {
+            client_id: client_id,
+            client_secret: client_secret,
+            near: "San Francisco, CA" ,
+            v: '20180323'
+            }
+    },function(error, request, body) { 
+        if (error) {
+            console.error(error);
+        } else {
+            let whatsTrendingList = []
+            // let responseArr = JSON.parse(body)["response"]["groups"][0]["items"]
+            let responseArr = JSON.parse(body)
+            console.log(responseArr)
+            // responseArr.forEach(function(element){
+            //     // console.log(element["name"])
+            //     trendingVenue = {
+            //         "name": element["name"]
+            //     }
+            // })
+            
+            res.send(responseArr)
+        }
+    })
 })
 
 

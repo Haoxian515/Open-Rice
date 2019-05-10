@@ -91,7 +91,7 @@ class App extends Component {
         <VenueCard key={venue} />
       )
 
-      let trendsFiller = [1,2,3,4].map( venue => 
+      let trendsFiller = [1,2,3,4,5,6,7,8].map( venue => 
         <Trends key={venue} />
       )
     
