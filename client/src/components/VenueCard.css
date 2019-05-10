@@ -1,0 +1,17 @@
+.card{
+    width: 18%;
+    color: #202020;
+    text-align: center;
+    background-color:white;
+    margin-top: 5%;
+    
+}
+
+.card:hover{
+    box-shadow: 0 1rem 1.2rem rgba(0, 0, 0, 0.1); 
+}
+
+.card-top{
+    width: 100%;
+    transform: scale(0.99);
+}
