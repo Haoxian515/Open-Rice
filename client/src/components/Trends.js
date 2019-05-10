@@ -3,13 +3,19 @@ import {connect} from "react-redux";
 
 import "./Trends.css"
 
+import image from "../assets/matcha.jpg"
+
+
+
 class Trends extends Component{
 
 
     render(){
         return(
-            <div className="trends">
-                Trends place holder
+            <div className="trends" >
+                <img className="trend-img" src={image} 
+                    alt={image}
+                />
             </div>
         )
     }

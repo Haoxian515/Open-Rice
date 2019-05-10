@@ -1,4 +1,8 @@
 .trends{
+    width: 23%;
 
-    background-color: red;
+}
+
+.trend-img{
+    width: 100%;
 }

@@ -27,12 +27,26 @@ class App extends Component {
 
     this.state = ({
       text: "FROM APP.JS",
-      venue_ids: []
+      venue_ids: [],
+      main_venue_ids:[]
     })
+
+    // this.getFive()
 
   }
 
-  
+  // getFive = async() => {
+  //   fetch("http://localhost:3001/api/getMain")
+  //     .then(response => response.json())
+  //     .then(venues => {
+  //       // let tempState = this.state;
+  //       // console.log(res)
+  //       // console.log(tempState.venues)
+  //       this.setState({main_venue_ids: venues})
+  //       // console.log(this.state.mainVenues)
+  //     }).catch(() => console.log("Can’t access response. Blocked by browser?"));
+  // };
+
   // getDataFromDb = async () => {
   //   fetch("http://localhost:3001/api/getData")
   //     .then(response => response.json())
@@ -50,7 +64,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log("Component did mount")
-    console.log(this.state.venues)
+    console.log(this.state.mainVenues)
   }
   componentDidUpdate(){
     // debugger
@@ -61,25 +75,24 @@ class App extends Component {
   render() {
     // debugger
     // let Venues = []
-      let Venues = this.props.venues.map( (venue) => 
-      <Venue 
-            venue={venue} 
-          />
-        )
-      let venuesList = this.props.venue_ids.map( (venue_id) =>
-              
-          <VenueCard 
-            key={venue_id}
-            id={venue_id}
-          />
-      )
+      // let Venues = this.props.venues.map( (venue) => 
+      //   <Venue venue={venue} />
+      // )
+    
+      // let mainVenues = this.state.main_venue_ids.map( (venue_id) => 
+      //   <VenueCard key={venue_id} id={venue_id} /> 
+      //   )
+
+      // let venuesList = this.props.venue_ids.map( (venue_id) =>   
+      //     <VenueCard key={venue_id} id={venue_id} />
+      // )
 
       let filler = [1,2,3,4,5].map( venue => 
-        <VenueCard 
-          key={venue}
+        <VenueCard key={venue} />
+      )
 
-        />
-
+      let trendsFiller = [1,2,3,4].map( venue => 
+        <Trends key={venue} />
       )
     
     return (
@@ -96,7 +109,11 @@ class App extends Component {
                 {filler}
             </div>
           </div>
-        <Trends />
+          
+          <div className="trends-container">
+            {trendsFiller}
+          </div>
+        
         </div>
       </div>
     );
@@ -107,7 +124,8 @@ function mapStateToProps(reduxState){
   // debugger
   return {
     venues: reduxState.venues,
-    venue_ids: reduxState.venue_ids
+    venue_ids: reduxState.venue_ids,
+    main_venue_ids: reduxState.main_venue_ids
   }
 }
 

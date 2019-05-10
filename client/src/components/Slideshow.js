@@ -7,6 +7,7 @@ import "./Slideshow.css"
 import drone from "../assets/drone.jpg"
 import image from "../assets/minced.jpg"
 import image2 from "../assets/hotpot.jpg"
+import image3 from "../assets/matcha.jpg"
 
 
 
@@ -29,7 +30,7 @@ class Slideshow extends Component{
     constructor(){
         super()
         this.state = {
-            images: [image, image2, image],
+            images: [image, image2, image3],
             currentIndex: 0,
             translateValue: 0,
             ani: "slide-out-animation"
@@ -66,7 +67,7 @@ class Slideshow extends Component{
 
     render(){
 
-        setTimeout(this.goToNextSlide, 2000)
+        setTimeout(this.goToNextSlide, 3000)
 
         let carousel = this.state.images.map((image, i) => (
             <Slide image={image} key={i} />

@@ -22,7 +22,7 @@ class VenueCard extends Component{
             venueName:"",
             venuePhoto:"",
         }
-        console.log("fetching venue details ... ")
+        console.log("fetching venue detaifetching venue detaifetching venue detaifetching venue detaifetching venue detaifetching venue details ... ")
         axios.get("http://localhost:3001/api/venue_detail", {   
             params: {
                 "venue_id": this.props.id

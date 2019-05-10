@@ -52,7 +52,6 @@ router.get('/getdata', function(req, res) {
             }
         );
     }
-    
 
     console.log("current query string " + queryString)
     if(queryString !== undefined){
@@ -91,6 +90,38 @@ router.get("/venue_detail", function(req, res){
     // https://fastly.4sqi.net/img/general/ + width960 + /3554975_pgsbwDgSJAPrsxKUmcCU9w3yx_xpV71T820XKEG9Kso.jpg
 
     // https://fastly.4sqi.net/img/general/width960/40086548_PHU6G26hLdTtio15g9Hhaj0rgUnXrcig4b0gd7n9TQA.jpg
+})
+
+router.get('/getMain', function(req, res) {
+    request({
+        url: 'https://api.foursquare.com/v2/venues/search',
+        method: 'GET',
+            qs: {
+            client_id: client_id,
+            client_secret: client_secret,
+            near: "San Francisco, CA" ,
+            query: "Ramen",
+            v: '20180323',
+            limit: 5
+            }
+    }
+    ,function(error, request, body) { 
+            if (error) {
+                console.error(error);
+            } else {
+                let id = (JSON.parse(body)["response"]["venues"][0]["id"])
+                let id_json = JSON.parse(body)["response"]["venues"];
+                let ids = []
+                // console.log(id_json)
+                id_json.forEach(element => {
+                    // console.log(element["id"])
+                    ids.push(element["id"])
+                });
+                // console.log(ids)
+                res.send(ids)
+            }
+        }
+    );
 })
 
 
