@@ -10,10 +10,10 @@
 .hot-topic .hot-topic-nav{
     position: relative;
     background-color: white;
-    height: 6rem;
-    width: 16rem;
+    height: 7rem;
+    width: 18rem;
     margin: auto 0 auto 0;
-    left: 3rem;
+    left: 1rem;
     z-index: 2;
     
 }

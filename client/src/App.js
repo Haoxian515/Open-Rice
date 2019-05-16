@@ -105,11 +105,13 @@ class App extends Component {
           
             <HotTopic />
 
-            <div className="card-container">
+            <h2>What's Hot</h2>
+            <div className="card-container">  
                 {filler}
             </div>
           </div>
           
+          <h2>Explore</h2>
           <div className="trends-container">
             {trendsFiller}
           </div>
