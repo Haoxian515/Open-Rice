@@ -128,22 +128,37 @@ router.get('/getMain', function(req, res) {
 router.get('/trending', function(req, res) {
     // res.send("trending place holder")
     request({
-        url: 'https://api.foursquare.com/v2/venues/trending',
+        url: 'https://api.foursquare.com/v2/venues/explore',
         method: 'GET',
             qs: {
             client_id: client_id,
             client_secret: client_secret,
             near: "San Francisco, CA" ,
-            v: '20180323'
+            v: '20180323',
+            limit:5
             }
     },function(error, request, body) { 
         if (error) {
             console.error(error);
         } else {
             let whatsTrendingList = []
-            // let responseArr = JSON.parse(body)["response"]["groups"][0]["items"]
-            let responseArr = JSON.parse(body)
-            console.log(responseArr)
+            //returns arr
+            let responseArr = JSON.parse(body)["response"]["groups"][0]["items"]
+            for(let item of responseArr){
+                console.log(item["venue"]["name"])
+                let id = item["venue"]["id"]
+                let name = item["venue"]["name"]
+                let formattedAddress = item["venue"]["location"]["formattedAddress"]
+                let venue = {
+                    id:id,
+                    name:name,
+                    formattedAddress,formattedAddress
+                }
+                whatsTrendingList.push(venue)
+            }
+            // let responseArr = JSON.parse(body)["response"]["venues"]
+            // let responseArr = JSON.parse(body)
+
             // responseArr.forEach(function(element){
             //     // console.log(element["name"])
             //     trendingVenue = {
@@ -151,7 +166,7 @@ router.get('/trending', function(req, res) {
             //     }
             // })
             
-            res.send(responseArr)
+            res.send(whatsTrendingList)
         }
     })
 })

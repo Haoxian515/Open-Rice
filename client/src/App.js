@@ -35,17 +35,17 @@ class App extends Component {
 
   }
 
-  // getFive = async() => {
-  //   fetch("http://localhost:3001/api/getMain")
-  //     .then(response => response.json())
-  //     .then(venues => {
-  //       // let tempState = this.state;
-  //       // console.log(res)
-  //       // console.log(tempState.venues)
-  //       this.setState({main_venue_ids: venues})
-  //       // console.log(this.state.mainVenues)
-  //     }).catch(() => console.log("Can’t access response. Blocked by browser?"));
-  // };
+  getFive = async() => {
+    fetch("http://localhost:3001/api/getMain")
+      .then(response => response.json())
+      .then(venues => {
+        // let tempState = this.state;
+        // console.log(res)
+        // console.log(tempState.venues)
+        this.setState({main_venue_ids: venues})
+        // console.log(this.state.mainVenues)
+      }).catch(() => console.log("Can’t access response. Blocked by browser?"));
+  };
 
   // getDataFromDb = async () => {
   //   fetch("http://localhost:3001/api/getData")
@@ -74,22 +74,16 @@ class App extends Component {
 
   render() {
     // debugger
-    // let Venues = []
-      // let Venues = this.props.venues.map( (venue) => 
-      //   <Venue venue={venue} />
-      // )
     
-      // let mainVenues = this.state.main_venue_ids.map( (venue_id) => 
-      //   <VenueCard key={venue_id} id={venue_id} /> 
-      //   )
-
-      // let venuesList = this.props.venue_ids.map( (venue_id) =>   
-      //     <VenueCard key={venue_id} id={venue_id} />
-      // )
-
-      let filler = [1,2,3,4,5].map( venue => 
+      let mainVenues = [1,2,3,4,5].map( venue => 
         <VenueCard key={venue} />
       )
+      
+      if(this.state.main_venue_ids.length > 0){
+        mainVenues = this.state.main_venue_ids.map( (venue_id) => 
+          <VenueCard key={venue_id} id={venue_id} /> 
+          )
+      }
 
       let trendsFiller = [1,2,3,4,5,6,7,8].map( venue => 
         <Trends key={venue} />
@@ -107,7 +101,7 @@ class App extends Component {
 
             <h2>What's Hot</h2>
             <div className="card-container">  
-                {filler}
+                {mainVenues}
             </div>
           </div>
           
