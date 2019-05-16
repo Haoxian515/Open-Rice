@@ -28,10 +28,12 @@ class App extends Component {
     this.state = ({
       text: "FROM APP.JS",
       venue_ids: [],
-      main_venue_ids:[]
+      main_venue_ids:[],
+      explores_ids:[]
     })
 
     // this.getFive()
+    // this.getExplore()
 
   }
 
@@ -43,6 +45,15 @@ class App extends Component {
         // console.log(res)
         // console.log(tempState.venues)
         this.setState({main_venue_ids: venues})
+        // console.log(this.state.mainVenues)
+      }).catch(() => console.log("Can’t access response. Blocked by browser?"));
+  };
+
+  getExplore = async() => {
+    fetch("http://localhost:3001/api/explore")
+      .then(response => response.json())
+      .then(venues => {
+        this.setState({explores_ids: venues})
         // console.log(this.state.mainVenues)
       }).catch(() => console.log("Can’t access response. Blocked by browser?"));
   };
@@ -88,6 +99,11 @@ class App extends Component {
       let trendsFiller = [1,2,3,4,5,6,7,8].map( venue => 
         <Trends key={venue} />
       )
+      if(this.state.explores_ids.length > 0){
+        trendsFiller = this.state.explores_ids.map( (venue_id) => 
+          <Trends key={venue_id} id={venue_id} /> 
+          )
+      }
     
     return (
       <div className="App">
@@ -121,7 +137,8 @@ function mapStateToProps(reduxState){
   return {
     venues: reduxState.venues,
     venue_ids: reduxState.venue_ids,
-    main_venue_ids: reduxState.main_venue_ids
+    main_venue_ids: reduxState.main_venue_ids,
+    explores_ids: reduxState.explores_ids
   }
 }
 

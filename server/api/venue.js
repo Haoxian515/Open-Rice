@@ -125,7 +125,7 @@ router.get('/getMain', function(req, res) {
 })
 
 
-router.get('/trending', function(req, res) {
+router.get('/explore', function(req, res) {
     // res.send("trending place holder")
     request({
         url: 'https://api.foursquare.com/v2/venues/explore',
@@ -135,7 +135,7 @@ router.get('/trending', function(req, res) {
             client_secret: client_secret,
             near: "San Francisco, CA" ,
             v: '20180323',
-            limit:5
+            limit:8
             }
     },function(error, request, body) { 
         if (error) {
@@ -145,16 +145,16 @@ router.get('/trending', function(req, res) {
             //returns arr
             let responseArr = JSON.parse(body)["response"]["groups"][0]["items"]
             for(let item of responseArr){
-                console.log(item["venue"]["name"])
+                // console.log(item["venue"]["name"])
                 let id = item["venue"]["id"]
-                let name = item["venue"]["name"]
-                let formattedAddress = item["venue"]["location"]["formattedAddress"]
-                let venue = {
-                    id:id,
-                    name:name,
-                    formattedAddress,formattedAddress
-                }
-                whatsTrendingList.push(venue)
+                // let name = item["venue"]["name"]
+                // let formattedAddress = item["venue"]["location"]["formattedAddress"]
+                // let venue = {
+                //     id:id,
+                //     name:name,
+                //     formattedAddress,formattedAddress
+                // }
+                whatsTrendingList.push(id)
             }
             // let responseArr = JSON.parse(body)["response"]["venues"]
             // let responseArr = JSON.parse(body)
