@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-
+import { BrowserRouter, Route, Link , Switch} from "react-router-dom";
 //COMPONENETS
 import Venue from "./components/venue.js";
 // import InputFormArea from './components/inputFormArea.js';
@@ -105,29 +105,36 @@ class App extends Component {
           )
       }
     
-    return (
+    const Main_Page = () => (
       <div className="App">
         <NavBar />
-
         <div className="content">
-
           <div className="left-main">
-          
             <HotTopic />
-
             <h2>What's Hot</h2>
             <div className="card-container">  
                 {mainVenues}
             </div>
           </div>
-          
           <h2>Explore</h2>
           <div className="trends-container">
             {trendsFiller}
           </div>
-        
         </div>
       </div>
+    )
+
+    const About_Page = () => (
+      <h1>HELLO H1</h1>  
+    )
+
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Main_Page}/>
+          <Route exact path="/about" component={About_Page}/>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
