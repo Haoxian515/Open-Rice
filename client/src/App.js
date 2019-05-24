@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import { BrowserRouter, Route, Link , Switch} from "react-router-dom";
+import { BrowserRouter, Route, Link , Switch, Redirect} from "react-router-dom";
 //COMPONENETS
 import Venue from "./components/venue.js";
 // import InputFormArea from './components/inputFormArea.js';
@@ -8,6 +8,8 @@ import VenueCard from "./components/VenueCard.js";
 import NavBar from "./components/NavBar.js";
 import HotTopic from "./components/HotTopic.js";
 import Trends from "./components/Trends.js";
+import Search_Page from "./components/Search_Page.js";
+
 
 //ACTION CREATOR
 import {
@@ -132,6 +134,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Main_Page}/>
+          <Route exact path="/search_result" render={ () => <Search_Page />} />
           <Route exact path="/about" component={About_Page}/>
         </Switch>
       </BrowserRouter>

@@ -6,6 +6,8 @@ body{
     min-width: 760px;
 }
 
+
+
 .container{
     display: flex;
     justify-content: space-between;

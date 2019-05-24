@@ -11,6 +11,8 @@ import Slideshow from "./Slideshow.js"
 
 class HotTopic extends Component{
 
+    _isMounted = false;
+
     constructor(props){
         super(props)
         
@@ -19,17 +21,27 @@ class HotTopic extends Component{
         }
 
     }
+    componentWillReceiveProps(){
+        this._isMounted = true;
+    }
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
     
     render(){
-        return(
-            <div className="hot-topic-container">
-                <div className="hot-topic">
+        if(this._isMounted){
+            return(
+                <div className="hot-topic-container">
+                    <div className="hot-topic">
 
-                    <div className = "hot-topic-nav" ><h3>Top to chill places you should visit</h3></div>
-                    <Slideshow />
+                        <div className = "hot-topic-nav" ><h3>Top to chill places you should visit</h3></div>
+                        <Slideshow />
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }else{
+            return(<div></div>)
+        }
     }
 
 }

@@ -1,3 +1,20 @@
-input{
-    height: 1.5rem;
+.input-style{
+    height: 2.5em;
+    width: 16em;
+}
+
+#form{
+    display: flex;
+    margin: auto 0;
+}
+
+.input-button{
+
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 0.5em 4em;
+    font-size: 1em;
+    cursor: pointer;
+
 }

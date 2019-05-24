@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
+import { withRouter } from 'react-router-dom';
+
 
 import axios from "axios";
 
@@ -62,21 +64,32 @@ class InputFormArea extends Component{
     }
 
     handleSubmit(e){
-        alert("input form " + this.state.inputValue)
+        // callAPI()
         e.preventDefault()
+        // console.log("Calling Api")
+        this.props.history.push("search_result");
+
+        // this.callAPI()
+        // this.props.history.push("about");
+    }
+
+    callAPI() {
+        // alert("input form " + this.state.inputValue)
+        // e.preventDefault()
         axios.get("http://localhost:3001/api/getdata", {   
             params: {
                 "input": this.state.inputValue,
                 "queryArea": this.state.searchArea
             }
-        }).then( response => 
+        }).then( response => {
             this.props.getVenueIds(response.data)
+            // console.log(response.data)
+            this.props.history.push("search_result");
+        }
         ).catch(err => {
             console.log("ERROR: " + err)
         })
-
     }
-
 
     render(){
 
@@ -91,17 +104,17 @@ class InputFormArea extends Component{
         )
         }
         return(
-            <div>
-                <form onSubmit={this.handleSubmit}>
+            <div id="input-form">
+                <form id="form" onSubmit={this.handleSubmit}>
                     <label>
-                    <input  type="text" name="input-query" list="input-query"
+                    <input className="input-style" type="text" name="input-query" list="input-query"
                             value={this.state.inputValue}
                             onChange={this.handleChange}    
                             onFocus={this.handleChange}
                     />
                     </label>
 
-                    <input  type="text" name="searchArea-query" list="searchArea-query"
+                    <input  className="input-style" type="text" name="searchArea-query" list="searchArea-query"
                             value={this.state.searchArea}
                             onChange={this.handleChange}
                             onFocus={this.handleChange}
@@ -111,7 +124,7 @@ class InputFormArea extends Component{
                         {queryOption}
                     </datalist>
 
-                    <input type="submit" value="Submit" disabled="true"/>
+                    <input className="input-button" type="submit" value="Submit"/>
                 </form>
             </div>
         )
@@ -120,11 +133,12 @@ class InputFormArea extends Component{
 
 function mapStateToProps(reduxState){
     // debugger
-    // console.log("Inputform compoenent " + reduxState );
+    console.log(reduxState );
+
 
     return {
         venue_ids: reduxState.venue_ids
     }
   }
 
-export default connect(mapStateToProps, {getVenueIds} )(InputFormArea);
+export default connect(mapStateToProps, {getVenueIds} )(withRouter(InputFormArea));

@@ -11,9 +11,9 @@
 }
 .nav-bar-inner{
     display: flex; 
-    margin: auto 0 auto 0;
+    width: 100%;
     justify-content: space-evenly;
-    flex-basis: 40%;
+    flex-basis: 50%;
 }
 
 
