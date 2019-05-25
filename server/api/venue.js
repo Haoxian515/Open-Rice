@@ -69,6 +69,7 @@ router.get('/getdata', function(req, res) {
 // https://api.foursquare.com/v2/venues/VENUE_ID
 
 
+//create functions venue detail set up venue
 router.get("/venue_detail", function(req, res){
     
         var venue_id = req.query.venue_id
@@ -92,6 +93,10 @@ router.get("/venue_detail", function(req, res){
     // https://fastly.4sqi.net/img/general/width960/40086548_PHU6G26hLdTtio15g9Hhaj0rgUnXrcig4b0gd7n9TQA.jpg
 })
 
+
+
+
+// gets venue ids for whats hot
 router.get('/getMain', function(req, res) {
     request({
         url: 'https://api.foursquare.com/v2/venues/search',
@@ -124,7 +129,7 @@ router.get('/getMain', function(req, res) {
     );
 })
 
-
+// gets venues ids of explore 
 router.get('/explore', function(req, res) {
     // res.send("trending place holder")
     request({
@@ -156,15 +161,6 @@ router.get('/explore', function(req, res) {
                 // }
                 whatsTrendingList.push(id)
             }
-            // let responseArr = JSON.parse(body)["response"]["venues"]
-            // let responseArr = JSON.parse(body)
-
-            // responseArr.forEach(function(element){
-            //     // console.log(element["name"])
-            //     trendingVenue = {
-            //         "name": element["name"]
-            //     }
-            // })
             
             res.send(whatsTrendingList)
         }
