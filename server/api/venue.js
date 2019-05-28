@@ -5,15 +5,32 @@ const request = require("request");
 
 const router = express.Router();
 
-var client_id = "AJJZGK4GMWAL4QUAYG4VEP32SVNWSJRP0SWFZA0HRYOMF3HW"
-var client_secret = "1W52K4CPPW11WZQSMMWNJG1HG3XAU5Q3COMR5RAKZOWUJEZ0"
+var client_id = "1YRBX0IWIB41CHKIVFKMTDDWTT0MNDDPZZRIY4E4CQ01FQ4J"
+var client_secret = "SAXOTPI4QTRHPUZOE0ZT3L12YX5ABI3UMRCMRZFENSG53RNI"
 
 // GET DATA// GET DATA// GET DATA
 // GET DATA// GET DATA// GET DATA
 // GET DATA// GET DATA// GET DATA
 
+router.get("/quick_test", function(req, res){
+    request({
+        url: 'https://api.foursquare.com/v2/venues/search',
+        method: 'GET',
+            qs: {
+            client_id: client_id,
+            client_secret: client_secret,
+            near: "San Francisco, CA" ,
+            query: "Coffee",
+            v: '20180323',
+            limit: 5
+            }
+    }, function(err, request, body){
+        console.log(body)
+        res.send(JSON.parse(body))
+    })
+})
 
-router.get('/getdata', function(req, res) {
+router.get('/get_venueIDs', function(req, res) {
     console.log("hello 3001 getting data")
     // console.log(req.query)
     //foursquare api
@@ -31,7 +48,7 @@ router.get('/getdata', function(req, res) {
                 near: queryArea ,
                 query: queryString,
                 v: '20180323',
-                limit: 5
+                limit: 2
                 }
         }
         ,function(error, request, body) { 

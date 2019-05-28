@@ -152,5 +152,5 @@ function mapStateToProps(reduxState){
   }
 }
 
-export default connect(mapStateToProps, {getVenueDetails} )(App);
+export default connect(mapStateToProps, {getVenueDetails, } )(App);
 

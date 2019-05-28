@@ -2,7 +2,8 @@ import {
     TEST,
     POPULATE_VENUE,
     POPULATE_IDS,
-    VENUE_DETAILS
+    VENUE_DETAILS,
+    ASSIGN_SEARCH_INPUTS
 
 } from "../actions/actionCreators";
 
@@ -19,6 +20,16 @@ export default function rootReducer(state = initialState, action){
             let newState = {...state}
             newState.test = "hello test works!"
             return newState;
+        };
+        case ASSIGN_SEARCH_INPUTS:{
+            let newState = {... state}
+            let searchKey = action.searchKey
+            let searchLocation = action.searchLocation
+            return {
+                ...newState,
+                searchKey: searchKey,
+                searchLocation: searchLocation
+            }
         };
         case POPULATE_VENUE:{
             let newState = {...state}

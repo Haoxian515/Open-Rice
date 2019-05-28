@@ -67,7 +67,6 @@ class VenueCard extends Component{
                 />
                 <div className="card-body">
                     <h4>Title: {this.state.venueName} </h4>
-
                 </div>
             </div>
         )

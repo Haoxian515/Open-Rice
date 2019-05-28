@@ -55,17 +55,7 @@ app.post("/api/postdata", function(req,res){
     console.log("posting data ... ")
     // console.log(res)
     console.log(req.body["input"])
-    // var newData = {
-    //     "owner": "benson",
-    //     "title": "olive juice"
-    // }
-    // TestSchema.create(newData, function(err, postedData){
-    //     if(err){
-    //         console.log(err);   
-    //     }
-    //     console.log("New data posted " + postedData);
-    // })
-    // res.redirect("/");
+
 })
 
 app.get("/", function(req, res){
