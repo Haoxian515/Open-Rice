@@ -57,6 +57,7 @@ router.get('/get_venueIDs', function(req, res) {
                 } else {
                     let id = (JSON.parse(body)["response"]["venues"][0]["id"])
                     let id_json = JSON.parse(body)["response"]["venues"];
+
                     let ids = []
                     // console.log(id_json)
                     id_json.forEach(element => {
@@ -89,6 +90,8 @@ router.get('/get_venueIDs', function(req, res) {
 //create functions venue detail set up venue
 router.get("/venue_detail", function(req, res){
     
+
+
         var venue_id = req.query.venue_id
         request({
             url: 'https://api.foursquare.com/v2/venues/' + venue_id,
@@ -101,7 +104,23 @@ router.get("/venue_detail", function(req, res){
                 }
         }, function(error , request, body){
             let venue_details = JSON.parse(body)["response"]["venue"]
-            res.send(venue_details)
+            let venue_details_response = {
+                "name": venue_details["name"],
+                "formattedAddress": venue_details["location"]["formattedAddress"],
+                "bestPhoto": venue_details["bestPhoto"]["prefix"] + "400x400" + venue_details["bestPhoto"]["suffix"],
+                "priceRange": venue_details["attributes"]["groups"][0]["summary"],
+                "categories": venue_details["categories"]
+
+            }
+            res.send(venue_details_response)
+
+            // venue_details["name"]
+            // venue_details["location"]["formattedAddress"] //array of address
+            // venue_details["bestPhoto"]["prefix"] + 
+            //                     "400x400" + 
+            //                     response.data["bestPhoto"]["suffix"]
+            // venue_details["attributes"]["groups"][0]["summary"] // price
+            // venue_details["categories"] //array 
         })
 
     // END GET VENUTE DETAIL
