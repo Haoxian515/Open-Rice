@@ -28,9 +28,7 @@ class Trends extends Component{
             // console.log(response.data)
             let resVenueName = response.data["name"]
             // venueDetail : bestPhoto : prefix : suffix
-            let resVenuePhoto = response.data["bestPhoto"]["prefix"] + 
-                                "400x400" + 
-                                response.data["bestPhoto"]["suffix"]
+            let resVenuePhoto = response.data["bestPhoto"]
             this.setState(
                 // {venueDetail: response.data}
                 {
