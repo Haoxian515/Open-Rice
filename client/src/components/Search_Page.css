@@ -1,0 +1,32 @@
+.search_detail{
+    margin: 0 0 1rem 0;
+    background-color: white;
+    padding: 2rem;
+    font-size: 2rem;
+}
+
+.search_page_card p{
+    margin: 0.5rem;
+}
+.search_page_card img{
+    width: 30%;
+    height: 30%;
+}
+.search_page_card{
+    min-width: 32rem;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin:  0 32rem 1rem 2rem;
+    padding: 1em ;
+}
+
+.search_page_card_preview{
+    display: flex;
+}
+
+.search_page_venue_details{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
