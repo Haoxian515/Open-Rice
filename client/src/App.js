@@ -34,20 +34,28 @@ class App extends Component {
       explores_ids:[]
     })
 
-    // this.getFive()
+    // this.fetchTest()
+    this.getFive()
     // this.getExplore()
 
   }
 
+  fetchTest = async() => {
+    fetch("http://localhost:3001/api/quick_test")
+      .then(response => response.json())
+      .then(data => this.setState({main_venue_ids: data}))
+  } 
+
   getFive = async() => {
+    console.log("PLEASE JUST PRINTSOOMETHING")
+
     fetch("http://localhost:3001/api/getMain")
       .then(response => response.json())
       .then(venues => {
-        // let tempState = this.state;
-        // console.log(res)
-        // console.log(tempState.venues)
-        this.setState({main_venue_ids: venues})
-        // console.log(this.state.mainVenues)
+        this.setState({main_venue_ids: venues}, function(){
+          console.log(this.state)
+        })
+        console.log(this.state.main_venue_ids)
       }).catch(() => console.log("Can’t access response. Blocked by browser?"));
   };
 
@@ -56,28 +64,28 @@ class App extends Component {
       .then(response => response.json())
       .then(venues => {
         this.setState({explores_ids: venues})
-        // console.log(this.state.mainVenues)
+        console.log(this.state.mainVenues)
       }).catch(() => console.log("Can’t access response. Blocked by browser?"));
   };
 
-  // getDataFromDb = async () => {
-  //   fetch("http://localhost:3001/api/getData")
-  //     .then(response => response.json())
-  //     .then(venues => {
-  //       // let tempState = this.state;
-  //       // console.log(res)
-  //       // console.log(tempState.venues)
-  //       this.setState({venues: venues})
-  //       // console.log(this.state.venues)
-  //     })
-  //     .catch(() => console.log("Can’t access response. Blocked by browser?"));
-  // };
+  getDataFromDb = async () => {
+    fetch("http://localhost:3001/api/getData")
+      .then(response => response.json())
+      .then(venues => {
+        // let tempState = this.state;
+        // console.log(res)
+        // console.log(tempState.venues)
+        this.setState({venues: venues})
+        // console.log(this.state.venues)
+      })
+      .catch(() => console.log("Can’t access response. Blocked by browser?"));
+  };
 
   
 
   componentDidMount() {
     console.log("Component did mount")
-    console.log(this.state.mainVenues)
+    console.log(this.state.main_venue_ids)
   }
   componentDidUpdate(){
     // debugger

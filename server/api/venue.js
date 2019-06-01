@@ -16,65 +16,86 @@ var client_secret = "SAXOTPI4QTRHPUZOE0ZT3L12YX5ABI3UMRCMRZFENSG53RNI"
 // GET DATA// GET DATA// GET DATA
 // GET DATA// GET DATA// GET DATA
 
-router.post("/test_post", function(req, res){
-    
+
+router.get('/quick_test', function(req, res) {
+    // console.log("JESUS CHRIST")
+    let data = [
+        "58a8fc412321c67cca7ee144",
+        "5632c07e498eaa6c566acefc",
+        "4c228972fbe5c9b6ed0e9a21",
+        "52b63dac498ec85aee861620",
+        "4d8eabc7d265236af9a71017"
+    ]
+    res.send(data)
+})
+
+function saveVenueToDB( newVenuObj ){
     var Venue = mongoose.model("Venue", VenueSchema);
-
-    let dummyVenue =  new Venue({
-        _id: 1234567,
-        name: "Test",
-        address: "123 Fake Street",
-        bestPhoto: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-        attributes:"Filler",
-        categories:["a","b","c"]
-    })
-
-    dummyVenue.save(function(err){
+    var newVenue = new Venue( newVenuObj ) 
+    newVenue.save( function(err, data){
         if(err){
-            console.log("someerr " + err)
+            console.log(err)
         }else{
-            console.log("Document saved")
+            console.log("New Venue saved to db")
         }
     })
 
-    res.send("Vnue should b posted")
-})
+}
 
-
-
-
-router.get("/quick_test", function(req, res){
-    var testSchema = mongoose.Schema({
-        name: String
+function getVenueFromDB( venue_id ){
+    var Venue = mongoose.model("Venue", VenueSchema);
+    Venue.findById(venue_id, function(err, data){
+        return data;
     })
-    var test = mongoose.model('venues', testSchema);
+}
 
-    console.log("quick test route")
-    // console.log(test.find({}))
-    //works
-    test.find({}, function(err, data){
-        console.log(data)
-    })
-
-
-    // res.send(mongoose.connection.find({}))
-
-    // request({
-    //     url: 'https://api.foursquare.com/v2/venues/search',
-    //     method: 'GET',
-    //         qs: {
-    //         client_id: client_id,
-    //         client_secret: client_secret,
-    //         near: "San Francisco, CA" ,
-    //         query: "Coffee",
-    //         v: '20180323',
-    //         limit: 5
-    //         }
-    // }, function(err, request, body){
-    //     console.log(body)
-    //     res.send(JSON.parse(body))
+function venueExistInDB( venue_id ){
+    var Venue = mongoose.model("Venue", VenueSchema);
+    // let dummyVenue =  new Venue({
+    //     _id: 1234567,
+    //     name: "Test",
+    //     address: "123 Fake Street",
+    //     bestPhoto: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    //     attributes:"Filler",
+    //     categories:["a","b","c"]
     // })
-})
+
+    //if find use else query load from 4square api
+
+    // findbyid
+    Venue.findById( venue_id , function(err, venue){
+        if(err){
+            console.log(err)
+        }else if(venue != null){
+            // if id exists return found venue
+            console.log(venue)
+            return true;
+        }else{
+            return false;
+        }
+    })
+
+    // find all in venue doc
+    // Venue.find({}, function(err, data){
+    //     if(err){
+    //         console.log(err)
+    //     }else if(data.length < 1){
+    //         console.log("No data found")
+    //     }else{
+    //         console.log(data)
+    //     }
+    // })
+
+    // save to db
+    // dummyVenue.save(function(err){
+    //     if(err){
+    //         console.log("someerr " + err)
+    //     }else{
+    //         console.log("Document saved")
+    //     }
+    // })
+}
+
 
 router.get('/get_venueIDs', function(req, res) {
     console.log("hello 3001 getting data")
@@ -138,42 +159,50 @@ router.get("/venue_detail", function(req, res){
     
     // if id exits in mlab call from mlab else make request and format and add to mlab
 
-
     var venue_id = req.query.venue_id
-    request({
-        url: 'https://api.foursquare.com/v2/venues/' + venue_id,
-        method: 'GET',
-            qs: {
-            client_id: client_id,
-            client_secret: client_secret,
-            v: '20180323',
-            VENUE_ID: venue_id
+    // console.log(req.query)
+    if( venueExistInDB(venue_id) ){
+        res.send( getVenueFromDB() )
+    }else{
+        request({
+            url: 'https://api.foursquare.com/v2/venues/' + venue_id,
+            method: 'GET',
+                qs: {
+                client_id: client_id,
+                client_secret: client_secret,
+                v: '20180323',
+                VENUE_ID: venue_id
+                }
+        }, function(error , request, body){
+            let venue_details = JSON.parse(body)["response"]["venue"]
+            console.log(venue_details)
+            let venue_details_formatted = {
+                "name": venue_details["name"],
+                "formattedAddress": venue_details["location"]["formattedAddress"],
+                "bestPhoto": venue_details["bestPhoto"]["prefix"] + "400x400" + venue_details["bestPhoto"]["suffix"],
+                "priceRange": venue_details["attributes"]["groups"][0]["summary"],
+                "categories": venue_details["categories"]
+
             }
-    }, function(error , request, body){
-        let venue_details = JSON.parse(body)["response"]["venue"]
-        let venue_details_response = {
-            "name": venue_details["name"],
-            "formattedAddress": venue_details["location"]["formattedAddress"],
-            "bestPhoto": venue_details["bestPhoto"]["prefix"] + "400x400" + venue_details["bestPhoto"]["suffix"],
-            "priceRange": venue_details["attributes"]["groups"][0]["summary"],
-            "categories": venue_details["categories"]
 
-        }
-        res.send(venue_details_response)
+            saveVenueToDB( venue_details_formatted )
 
-        // venue_details["name"]
-        // venue_details["location"]["formattedAddress"] //array of address
-        // venue_details["bestPhoto"]["prefix"] + 
-        //                     "400x400" + 
-        //                     response.data["bestPhoto"]["suffix"]
-        // venue_details["attributes"]["groups"][0]["summary"] // price
-        // venue_details["categories"] //array 
-    })
+            res.send(venue_details_formatted)
+
+            // venue_details["name"]
+            // venue_details["location"]["formattedAddress"] //array of address
+            // venue_details["bestPhoto"]["prefix"] + 
+            //                     "400x400" + 
+            //                     response.data["bestPhoto"]["suffix"]
+            // venue_details["attributes"]["groups"][0]["summary"] // price
+            // venue_details["categories"] //array 
+        })
+    }
+
+
+
 
     // END GET VENUTE DETAIL
-    // https://fastly.4sqi.net/img/general/ + width960 + /3554975_pgsbwDgSJAPrsxKUmcCU9w3yx_xpV71T820XKEG9Kso.jpg
-
-    // https://fastly.4sqi.net/img/general/width960/40086548_PHU6G26hLdTtio15g9Hhaj0rgUnXrcig4b0gd7n9TQA.jpg
 })
 
 

@@ -24,7 +24,7 @@ class Trends extends Component{
                 "venue_id": this.props.id
             }
         }).then( response => {
-            // this.props.getVenueDetails(response.data)
+            this.props.getVenueDetails(response.data)
             // console.log(response.data)
             let resVenueName = response.data["name"]
             // venueDetail : bestPhoto : prefix : suffix
