@@ -5,8 +5,8 @@ const request = require("request");
 
 const router = express.Router();
 
-var client_id = "1YRBX0IWIB41CHKIVFKMTDDWTT0MNDDPZZRIY4E4CQ01FQ4J"
-var client_secret = "SAXOTPI4QTRHPUZOE0ZT3L12YX5ABI3UMRCMRZFENSG53RNI"
+var client_id = "LPBYSOB2KXM4E2XNPMKJSZG12BX55JJ15BMZXSJJGTBIQ3AU"
+var client_secret = "LQCK3YFSHOSF5IEQ3RHFCGG0RVRIM3GTJWDUEVWPOQN3W43F"
 
 // GET DATA// GET DATA// GET DATA
 // GET DATA// GET DATA// GET DATA
@@ -114,7 +114,7 @@ router.get('/getMain', function(req, res) {
             if (error) {
                 console.error(error);
             } else {
-                let id = (JSON.parse(body)["response"]["venues"][0]["id"])
+
                 let id_json = JSON.parse(body)["response"]["venues"];
                 let ids = []
                 // console.log(id_json)
