@@ -6,7 +6,8 @@ import { withRouter } from 'react-router-dom';
 import axios from "axios";
 
 import {
-    getVenueIds
+    getVenueIds,
+    assignSearchInputs
 } from "../actions/actionCreators";
 
 import "./inputFormArea.css"
@@ -67,6 +68,7 @@ class InputFormArea extends Component{
         // callAPI()
         e.preventDefault()
         // console.log("Calling Api")
+        this.props.assignSearchInputs(this.state.inputValue, this.state.searchArea)
         this.props.history.push("search_result");
 
         // this.callAPI()
@@ -76,14 +78,14 @@ class InputFormArea extends Component{
     callAPI() {
         // alert("input form " + this.state.inputValue)
         // e.preventDefault()
-        axios.get("http://localhost:3001/api/getdata", {   
+        axios.get("http://localhost:3001/api/get_venueIDs", {   
             params: {
                 "input": this.state.inputValue,
                 "queryArea": this.state.searchArea
             }
         }).then( response => {
             this.props.getVenueIds(response.data)
-            // console.log(response.data)
+            console.log(response.data)
             this.props.history.push("search_result");
         }
         ).catch(err => {
@@ -133,12 +135,13 @@ class InputFormArea extends Component{
 
 function mapStateToProps(reduxState){
     // debugger
-    console.log(reduxState );
+    // console.log(reduxState );
 
 
     return {
-        venue_ids: reduxState.venue_ids
+        venue_ids: reduxState.venue_ids,
+        inputValue: reduxState.inputKey
     }
   }
 
-export default connect(mapStateToProps, {getVenueIds} )(withRouter(InputFormArea));
+export default connect(mapStateToProps, {getVenueIds,assignSearchInputs} )(withRouter(InputFormArea));

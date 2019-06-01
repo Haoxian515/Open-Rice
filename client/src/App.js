@@ -34,7 +34,7 @@ class App extends Component {
       explores_ids:[]
     })
 
-    this.getFive()
+    // this.getFive()
     // this.getExplore()
 
   }
