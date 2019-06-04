@@ -26,11 +26,11 @@ class Search_Page_Card extends Component{
             // this.props.getVenueDetails(response.data)
             console.log(response.data)
             let venue = response.data
-            let resVenueName = response.data["name"]
+            // let resVenueName = response.data["name"]
             // venueDetail : bestPhoto : prefix : suffix
-            let resVenuePhoto = response.data["bestPhoto"]["prefix"] + 
-                                "400x400" + 
-                                response.data["bestPhoto"]["suffix"]
+            // let resVenuePhoto = response.data["bestPhoto"]["prefix"] + 
+            //                     "400x400" + 
+            //                     response.data["bestPhoto"]["suffix"]
 
             let venue_format = {
                 "name": venue["name"],
@@ -64,7 +64,7 @@ class Search_Page_Card extends Component{
                     <h3>{this.state.search_page_card.name}</h3>
                 </div>
                 <div className="search_page_card_preview">
-                    {/* <img src={this.state.search_page_card.photo}></img> */}
+                    <img src={this.state.search_page_card.photo}></img>
                     <div className="search_page_venue_details">
                         <p>{this.state.search_page_card.address}</p>
                         <p>{this.state.search_page_card.category}</p>
