@@ -10,48 +10,65 @@ import "./Search_Page.css"
 class Search_Page_Card extends Component{
     constructor(props){
         super(props)
-        console.log(this.props.venue_id)
+        this.state = {
+            search_page_card:{}
+        }
+        // console.log(this.props.venue_id)
+        this.getVenueDetails(this.props.venue_id)
     }
 
     getVenueDetails(venue_id){
         axios.get("http://localhost:3001/api/venue_detail", {   
             params: {
-                "venue_id": this.props.id
+                "venue_id": venue_id
             }
         }).then( response => {
             // this.props.getVenueDetails(response.data)
             console.log(response.data)
+            let venue = response.data
             let resVenueName = response.data["name"]
             // venueDetail : bestPhoto : prefix : suffix
             let resVenuePhoto = response.data["bestPhoto"]["prefix"] + 
                                 "400x400" + 
                                 response.data["bestPhoto"]["suffix"]
-            // this.setState(
-            //     // {venueDetail: response.data}
-            //     {
-            //         venueName: resVenueName,
-            //         venuePhoto: resVenuePhoto
-            //     }
-            // )
-            console.log("SEACH PAGE RH")
-            console.log(this.state)
+
+            let venue_format = {
+                "name": venue["name"],
+                "address": venue["location"]["address"],
+                "category": venue["categories"][0]["name"],
+                "price": venue["price"]["currency"],
+                "description": venue["reasons"]["items"][0]["summary"],
+                "photo": venue["bestPhoto"]["prefix"] + 
+                "400x400" + 
+                response.data["bestPhoto"]["suffix"]
+            }
+            console.log(venue_format)
+            this.setState({
+                search_page_card: venue_format
+            }, function(){
+                console.log("STATE SET")
+                console.log(venue_format)
+            })
+            // console.log("SEACH PAGE RH")
+            // console.log(this.state)
         }).catch(err => {
             console.log("ERROR: " + err)
         })
     }
 
     render(){
+
         return (
             <div className="search_page_card"> 
                 <div>
-                    <h3>["venue"]["name"]</h3>
+                    <h3>{this.state.search_page_card.name}</h3>
                 </div>
                 <div className="search_page_card_preview">
-                    <img src={image}></img>
+                    {/* <img src={this.state.search_page_card.photo}></img> */}
                     <div className="search_page_venue_details">
-                        <p>["location"]["address"]</p>
-                        <p>["categories"][0]["name"]</p>
-                        <p>Description</p>
+                        <p>{this.state.search_page_card.address}</p>
+                        <p>{this.state.search_page_card.category}</p>
+                        <p>{this.state.search_page_card.description}</p>
                     </div>
                 </div>
                 <div>
@@ -70,14 +87,13 @@ class Search_Page extends Component {
             venue_ids: ""
         }
         console.log("PRINTING SEACH PAGE")
-        console.log(this.props)
     }
 
     
 
     render(){
         const detailCard = this.props.venue_ids.map(venue_id => 
-            <Search_Page_Card venue_id={venue_id} />
+            <Search_Page_Card venue_id={venue_id} key={venue_id} />
         )
 
         const searchResultFor = <div className="search_detail">Search result for " {this.props.searchKey} "</div>

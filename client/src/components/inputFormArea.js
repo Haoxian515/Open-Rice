@@ -71,14 +71,14 @@ class InputFormArea extends Component{
         this.props.assignSearchInputs(this.state.inputValue, this.state.searchArea)
         this.props.history.push("search_result");
 
-        // this.callAPI()
+        this.callAPI()
         // this.props.history.push("about");
     }
 
     callAPI() {
         // alert("input form " + this.state.inputValue)
         // e.preventDefault()
-        axios.get("http://localhost:3001/api/get_venueIDs", {   
+        axios.get("http://localhost:3001/api/getdata", {   
             params: {
                 "input": this.state.inputValue,
                 "queryArea": this.state.searchArea
