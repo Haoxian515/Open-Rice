@@ -17,8 +17,6 @@ const port = 3001 || process.env.PORT
 
 app.use(cors())
 
-const client_id = "CJAEUX1GMIBXVPPWDHUEZ3GCRJHJJV1NSMI1RAGBFD0WFXA4"
-const client_secret = "5WJC4UHCVN2XCBSN51U00RJ4YWRUPOB3U4IBKCPJDXPB4WMC"
 
 // Set up mongodb
 const dbRoute = "mongodb://haoxian:M)M)club321@ds163905.mlab.com:63905/open_rice"
@@ -49,7 +47,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //ROUTE VENUE
 app.use("/api", venueRoute);
-
+// app.use("/addToMlab", mLabRoute)
 
 app.post("/api/postdata", function(req,res){
     console.log("posting data ... ")
