@@ -126,7 +126,11 @@ class InputFormArea extends Component{
                         {queryOption}
                     </datalist>
 
-                    <input className="input-button" type="submit" value="Submit"/>
+                    {/* <div className="submit-search"> */}
+                        {/* <input className="input-button" type="submit" value="Submit"/> */}
+                        <input className="submit-search" type="image" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-128.png" border="0" alt="Submit" />
+
+                    {/* </div> */}
                 </form>
             </div>
         )

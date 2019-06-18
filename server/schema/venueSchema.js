@@ -11,4 +11,4 @@ var Venue = new Schema({
 
 });
 
-module.exports = Venue
+module.exports = mongoose.model("Venue", Venue)

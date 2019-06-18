@@ -3,7 +3,7 @@ export const POPULATE_VENUE = "POPULATE_VENUE"
 export const POPULATE_IDS = "POPULATE_IDS"
 export const VENUE_DETAILS = "VENUE_DETAILS"
 export const ASSIGN_SEARCH_INPUTS = "ASSIGN_SEARCH_INPUTS"
-
+export const REMOVE_EMPTY_VENUES = "REMOVE_EMPTY_VENUES"
 
 export function testing(){
     return {
@@ -38,5 +38,12 @@ export function getVenueDetails(venue_details){
     return {
         type: VENUE_DETAILS,
         venue_details: venue_details
+    }
+}
+
+export function removeEmptyVenues(venue_id){
+    return {
+        type: REMOVE_EMPTY_VENUES,
+        venue_id: venue_id
     }
 }

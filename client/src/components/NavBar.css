@@ -16,4 +16,9 @@
     flex-basis: 50%;
 }
 
+.text-link{
+    color: inherit;
+    text-decoration: inherit;
+}
+
 

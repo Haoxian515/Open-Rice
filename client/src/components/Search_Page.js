@@ -7,6 +7,10 @@ import NavBar from "./NavBar"
 
 import "./Search_Page.css"
 
+import {
+    removeEmptyVenues
+} from "../actions/actionCreators"
+
 class Search_Page_Card extends Component{
     constructor(props){
         super(props)
@@ -24,7 +28,7 @@ class Search_Page_Card extends Component{
             }
         }).then( response => {
             // this.props.getVenueDetails(response.data)
-            console.log(response.data)
+            // console.log(response.data)
             let venue = response.data
             // let resVenueName = response.data["name"]
             // venueDetail : bestPhoto : prefix : suffix
@@ -36,13 +40,13 @@ class Search_Page_Card extends Component{
                 "name": venue["name"],
                 "address": venue["location"]["address"],
                 "category": venue["categories"][0]["name"],
-                "price": venue["price"]["currency"],
+                "price": undefined ? "?" : venue["price"]["currency"] ,
                 "description": venue["reasons"]["items"][0]["summary"],
                 "photo": venue["bestPhoto"]["prefix"] + 
                 "400x400" + 
                 response.data["bestPhoto"]["suffix"]
             }
-            console.log(venue_format)
+            // console.log(venue_format)
             this.setState({
                 search_page_card: venue_format
             }, function(){
@@ -53,6 +57,8 @@ class Search_Page_Card extends Component{
             // console.log(this.state)
         }).catch(err => {
             console.log("ERROR: " + err)
+            // this.props.removeEmptyVenues(venue_id)
+
         })
     }
 
@@ -95,6 +101,8 @@ class Search_Page extends Component {
         const detailCard = this.props.venue_ids.map(venue_id => 
             <Search_Page_Card venue_id={venue_id} key={venue_id} />
         )
+
+
 
         const searchResultFor = <div className="search_detail">Search result for " {this.props.searchKey} "</div>
 

@@ -18,3 +18,9 @@
     cursor: pointer;
 
 }
+
+.submit-search{
+    /* content:url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-128.png"); */
+    width: 2rem;
+    height: 2rem;
+}

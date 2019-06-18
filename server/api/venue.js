@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
+const VenueSchema = require("../schema/venueSchema");
 
 const router = express.Router();
 
@@ -12,6 +13,25 @@ var client_secret = "ED1AYFEPPOBFOUV4KF33ONJUH2Q5BITN0JSBWBQLNLK5UAFI"
 // GET DATA// GET DATA// GET DATA
 // GET DATA// GET DATA// GET DATA
 
+
+router.get("/mlab_test", function(req, res){
+    // Bernal Heights
+    // Tenderloin
+    VenueSchema.find({
+        $or:[
+            {"district": null},
+            {"district": "Tenderloin"}, 
+            {"district": "Bernal Heights"}] 
+    }, function(err, venues){
+        if(err){
+            console.log(err)
+        }else{
+            console.log("mlab_test route")
+            console.log(venues)
+            res.send(venues)
+        }
+    })
+})
 
 router.get('/getdata', function(req, res) {
     console.log("hello 3001 getting data")
