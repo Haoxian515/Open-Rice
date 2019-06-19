@@ -15,59 +15,20 @@ class Search_Page_Card extends Component{
     constructor(props){
         super(props)
         this.state = {
-            search_page_card:{}
+            search_page_card:{},
+            searchKey:""
         }
-        // console.log(this.props.venue_id)
-        this.getVenueDetails(this.props.venue_id)
+        console.log("SEARCH PAGE///")
+        console.log(this.props.searchVenuesArray)
     }
 
-    getVenueDetails(venue_id){
-        axios.get("http://localhost:3001/api/venue_detail", {   
-            params: {
-                "venue_id": venue_id
-            }
-        }).then( response => {
-            // this.props.getVenueDetails(response.data)
-            // console.log(response.data)
-            let venue = response.data
-            // let resVenueName = response.data["name"]
-            // venueDetail : bestPhoto : prefix : suffix
-            // let resVenuePhoto = response.data["bestPhoto"]["prefix"] + 
-            //                     "400x400" + 
-            //                     response.data["bestPhoto"]["suffix"]
-
-            let venue_format = {
-                "name": venue["name"],
-                "address": venue["location"]["address"],
-                "category": venue["categories"][0]["name"],
-                "price": undefined ? "?" : venue["price"]["currency"] ,
-                "description": venue["reasons"]["items"][0]["summary"],
-                "photo": venue["bestPhoto"]["prefix"] + 
-                "400x400" + 
-                response.data["bestPhoto"]["suffix"]
-            }
-            // console.log(venue_format)
-            this.setState({
-                search_page_card: venue_format
-            }, function(){
-                console.log("STATE SET")
-                console.log(venue_format)
-            })
-            // console.log("SEACH PAGE RH")
-            // console.log(this.state)
-        }).catch(err => {
-            console.log("ERROR: " + err)
-            // this.props.removeEmptyVenues(venue_id)
-
-        })
-    }
 
     render(){
 
         return (
             <div className="search_page_card"> 
                 <div>
-                    <h3>{this.state.search_page_card.name}</h3>
+                    <h3>{this.props.title}</h3>
                 </div>
                 <div className="search_page_card_preview">
                     <img src={this.state.search_page_card.photo}></img>
@@ -90,19 +51,21 @@ class Search_Page extends Component {
     constructor(props){
         super(props)
         this.state = {
-            venue_ids: ""
+            searchVenuesArray: []
         }
-        console.log("PRINTING SEACH PAGE")
+        console.log("SEARCH PAGE///")
+        console.log(this.props.searchVenuesArray)    
     }
 
     
 
     render(){
-        const detailCard = this.props.venue_ids.map(venue_id => 
-            <Search_Page_Card venue_id={venue_id} key={venue_id} />
-        )
-
-
+        let detailCard = this.state.searchVenuesArray;
+        if(this.state.searchVenuesArray.length > 0){
+            detailCard = this.state.searchVenuesArray.map(venue => 
+                <Search_Page_Card venue={venue.title} key={venue._id} />
+            )
+        }
 
         const searchResultFor = <div className="search_detail">Search result for " {this.props.searchKey} "</div>
 
@@ -111,6 +74,8 @@ class Search_Page extends Component {
                 <NavBar />
                     {searchResultFor}
                     {detailCard}
+                    {this.state.searchVenuesArray[0]}
+                    {this.state.searchKey}
             </div>
         )
     }
@@ -122,7 +87,7 @@ function mapStateToProps(reduxState){
         // venue_ids: reduxState.venue_ids
         searchKey: reduxState.searchKey,
         searchLocation: reduxState.searchLocation,
-        venue_ids: reduxState.venue_ids
+        searchVenuesArray: reduxState.searchVenuesArray
     }
 }
 

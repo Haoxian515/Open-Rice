@@ -7,7 +7,8 @@ import axios from "axios";
 
 import {
     getVenueIds,
-    assignSearchInputs
+    assignSearchInputs,
+    getVenues
 } from "../actions/actionCreators";
 
 import "./inputFormArea.css"
@@ -19,11 +20,11 @@ class InputFormArea extends Component{
     constructor(props){
         super(props)
         this.state = {
-            inputValue: "Coffee",
-            searchArea: "San Francisco, CA",
+            inputValue: "Brunch",
+            searchArea: "San Francisco",
             currInputFocus: "input-query",
-            queryOptions: ["Rice", "Coffee", "Dessert"],
-            searchAreaOptions: ["San Francisco, CA", "Berkeley, CA" , "San Jose, CA"]
+            queryOptions: ["Brunch", "Coffee", "Dessert", "Noodles","Dim Sum" ],
+            searchAreaOptions: ["San Francisco", "Berkeley" , "San Mateo"]
 
         }
         this.handleChange = this.handleChange.bind(this);
@@ -78,15 +79,16 @@ class InputFormArea extends Component{
     callAPI() {
         // alert("input form " + this.state.inputValue)
         // e.preventDefault()
-        axios.get("http://localhost:3001/api/getdata", {   
+        axios.get("http://localhost:3001/api/mlab_test", {   
             params: {
                 "input": this.state.inputValue,
                 "queryArea": this.state.searchArea
             }
         }).then( response => {
-            this.props.getVenueIds(response.data)
-            console.log(response.data)
-            this.props.history.push("search_result");
+            this.props.getVenues(response.data)
+            console.log("JUST GOT DATA")
+
+            // this.props.history.push("search_result");
         }
         ).catch(err => {
             console.log("ERROR: " + err)
@@ -103,8 +105,8 @@ class InputFormArea extends Component{
         }else{
             queryOption = this.state.searchAreaOptions.map( option => 
                 <OptionsList option={option} />
-        )
-        }
+        )}
+
         return(
             <div id="input-form">
                 <form id="form" onSubmit={this.handleSubmit}>
@@ -126,11 +128,8 @@ class InputFormArea extends Component{
                         {queryOption}
                     </datalist>
 
-                    {/* <div className="submit-search"> */}
-                        {/* <input className="input-button" type="submit" value="Submit"/> */}
-                        <input className="submit-search" type="image" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-128.png" border="0" alt="Submit" />
+                    <input className="submit-search" type="image" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-128.png" border="0" alt="Submit" />
 
-                    {/* </div> */}
                 </form>
             </div>
         )
@@ -141,11 +140,10 @@ function mapStateToProps(reduxState){
     // debugger
     // console.log(reduxState );
 
-
     return {
-        venue_ids: reduxState.venue_ids,
+        // venue_ids: reduxState.venue_ids,
         inputValue: reduxState.inputKey
     }
   }
 
-export default connect(mapStateToProps, {getVenueIds,assignSearchInputs} )(withRouter(InputFormArea));
+export default connect(mapStateToProps, {getVenues, assignSearchInputs} )(withRouter(InputFormArea));

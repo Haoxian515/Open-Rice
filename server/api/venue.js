@@ -18,19 +18,24 @@ var client_secret = "ED1AYFEPPOBFOUV4KF33ONJUH2Q5BITN0JSBWBQLNLK5UAFI"
 
 router.get("/mlab_test", function(req, res){
 
+    var queryString = req.query.input
+    var queryArea = req.query.queryArea
 
+    console.log("MLAB TEST ROUTE")
+    console.log(queryString)
+    console.log(queryArea)
 
 
     VenueSchema
         .find( 
             {$and:[{district: {"$in": districts.sanFrancisco}},
-            {category:{$regex: "coffee", $options: 'i'}}
+            {category:{$regex: queryString, $options: 'i'}}
             ]})
         .lean()
         .exec(function(err, venues){
 
-            console.log(venues)
-            res.send(venues)
+            // console.log(venues)
+            res.send( JSON.stringify(venues))
 
         })
 })

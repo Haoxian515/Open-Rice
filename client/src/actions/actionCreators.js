@@ -5,9 +5,18 @@ export const VENUE_DETAILS = "VENUE_DETAILS"
 export const ASSIGN_SEARCH_INPUTS = "ASSIGN_SEARCH_INPUTS"
 export const REMOVE_EMPTY_VENUES = "REMOVE_EMPTY_VENUES"
 
+export const GET_VENUES = "GET_VENUES"
+
 export function testing(){
     return {
         type:TEST,
+    }
+}
+
+export function getVenues(searchVenuesArray){
+    return {
+        type: GET_VENUES,
+        searchVenuesArray: searchVenuesArray
     }
 }
 

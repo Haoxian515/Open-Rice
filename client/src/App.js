@@ -31,7 +31,8 @@ class App extends Component {
       text: "FROM APP.JS",
       venue_ids: [],
       main_venue_ids:[],
-      explores_ids:[]
+      explores_ids:[],
+      searchVenuesArray:[]
     })
 
     // this.getFive()
@@ -148,7 +149,7 @@ function mapStateToProps(reduxState){
     venues: reduxState.venues,
     venue_ids: reduxState.venue_ids,
     main_venue_ids: reduxState.main_venue_ids,
-    explores_ids: reduxState.explores_ids
+    explores_ids: reduxState.explores_ids,
   }
 }
 
