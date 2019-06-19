@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const VenueSchema = require("../schema/venueSchema");
+const districts = require("../districts/districts")
+
 
 const router = express.Router();
 
@@ -15,22 +17,22 @@ var client_secret = "ED1AYFEPPOBFOUV4KF33ONJUH2Q5BITN0JSBWBQLNLK5UAFI"
 
 
 router.get("/mlab_test", function(req, res){
-    // Bernal Heights
-    // Tenderloin
-    VenueSchema.find({
-        $or:[
-            {"district": null},
-            {"district": "Tenderloin"}, 
-            {"district": "Bernal Heights"}] 
-    }, function(err, venues){
-        if(err){
-            console.log(err)
-        }else{
-            console.log("mlab_test route")
+
+
+
+
+    VenueSchema
+        .find( 
+            {$and:[{district: {"$in": districts.sanFrancisco}},
+            {category:{$regex: "coffee", $options: 'i'}}
+            ]})
+        .lean()
+        .exec(function(err, venues){
+
             console.log(venues)
             res.send(venues)
-        }
-    })
+
+        })
 })
 
 router.get('/getdata', function(req, res) {
