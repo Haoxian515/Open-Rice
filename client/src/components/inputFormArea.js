@@ -22,7 +22,7 @@ class InputFormArea extends Component{
         this.state = {
             inputValue: "Brunch",
             searchArea: "San Francisco",
-            currInputFocus: "input-query",
+
             queryOptions: ["Brunch", "Coffee", "Dessert", "Noodles","Dim Sum" ],
             searchAreaOptions: ["San Francisco", "Berkeley" , "San Mateo"]
 
@@ -37,7 +37,7 @@ class InputFormArea extends Component{
         // this.setState({
         //     currInputFocus:e.target.name
         // })
-        if(e.target.name === "input-query"){
+        if(e.target.name === "inputQ"){
 
             if(e.type === "change" ){
                 this.setState({
@@ -97,35 +97,40 @@ class InputFormArea extends Component{
 
     render(){
 
-        var queryOption;
-        if(this.state.currInputFocus === "input-query"){
-            queryOption = this.state.queryOptions.map( option => 
-                    <OptionsList option={option} />
-            )
-        }else{
-            queryOption = this.state.searchAreaOptions.map( option => 
-                <OptionsList option={option} />
-        )}
+        let inputOptions = [];
+        let searchAreaOptions = [];
+        
+        inputOptions = this.state.queryOptions.map( option => 
+            <OptionsList option={option} />
+        )
+
+        searchAreaOptions = this.state.searchAreaOptions.map( option => 
+            <OptionsList option={option} />
+        )
+
 
         return(
             <div id="input-form">
                 <form id="form" onSubmit={this.handleSubmit}>
-                    <label>
-                    <input className="input-style" type="text" name="input-query" list="input-query"
+
+                    <input className="input-style" type="text" name="inputQ" list="inputQ"
                             value={this.state.inputValue}
                             onChange={this.handleChange}    
                             onFocus={this.handleChange}
                     />
-                    </label>
+                    <datalist id="inputQ">
+                        {inputOptions}
+                    </datalist>
 
-                    <input  className="input-style" type="text" name="searchArea-query" list="searchArea-query"
+
+                    <input  className="input-style" type="text" name="searchAreaQ" list="searchAreaQ"
                             value={this.state.searchArea}
                             onChange={this.handleChange}
                             onFocus={this.handleChange}
                     />
 
-                    <datalist id={this.state.currInputFocus}>
-                        {queryOption}
+                    <datalist id="searchAreaQ">
+                        {searchAreaOptions}
                     </datalist>
 
                     <input className="submit-search" type="image" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-128.png" border="0" alt="Submit" />

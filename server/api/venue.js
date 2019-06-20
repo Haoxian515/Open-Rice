@@ -22,22 +22,38 @@ router.get("/mlab_test", function(req, res){
     var queryArea = req.query.queryArea
 
     console.log("MLAB TEST ROUTE")
-    console.log(queryString)
-    console.log(queryArea)
+    // console.log(queryString)
+    // console.log(queryArea)
+    switch( queryArea ){
+        case "San Francisco":
+            searchDistrict = districts.sanFrancisco
+            break;
+        case "San Mateo":
+            searchDistrict = districts.sanMateo
+            break;
+        case "Berkeley":
+            searchDistrict = districts.berkeley
+            break;
+        default:
+            searchDistrict = districts.sanFrancisco
 
+    }
+
+    let result = []
 
     VenueSchema
         .find( 
-            {$and:[{district: {"$in": districts.sanFrancisco}},
+            {$and:[{district: {"$in": searchDistrict}},
             {category:{$regex: queryString, $options: 'i'}}
             ]})
         .lean()
         .exec(function(err, venues){
 
             // console.log(venues)
-            res.send( JSON.stringify(venues))
+            res.send( (venues))
 
         })
+
 })
 
 router.get('/getdata', function(req, res) {
