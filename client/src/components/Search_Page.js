@@ -28,14 +28,14 @@ class Search_Page_Card extends Component{
         return (
             <div className="search_page_card"> 
                 <div>
-                    <h3>{this.props.title}</h3>
+                    <h3>{this.props.venue.title}</h3>
                 </div>
                 <div className="search_page_card_preview">
-                    <img src={this.state.search_page_card.photo}></img>
+                    <img src={this.props.venue.photo}></img>
                     <div className="search_page_venue_details">
-                        <p>{this.state.search_page_card.address}</p>
-                        <p>{this.state.search_page_card.category}</p>
-                        <p>{this.state.search_page_card.description}</p>
+                        <p>{this.props.venue.address}</p>
+                        <p>{this.props.venue.category}</p>
+                        <p>{this.props.venue.description}</p>
                     </div>
                 </div>
                 <div>
@@ -60,22 +60,20 @@ class Search_Page extends Component {
     
 
     render(){
-        let detailCard = this.state.searchVenuesArray;
-        if(this.state.searchVenuesArray.length > 0){
-            detailCard = this.state.searchVenuesArray.map(venue => 
-                <Search_Page_Card venue={venue.title} key={venue._id} />
+
+        let arr = []
+        if(this.props.searchVenuesArray !== undefined){
+            arr = this.props.searchVenuesArray.map( venue => 
+               < Search_Page_Card venue={venue} />
             )
         }
-
         const searchResultFor = <div className="search_detail">Search result for " {this.props.searchKey} "</div>
 
         return(
             <div>
                 <NavBar />
                     {searchResultFor}
-                    {detailCard}
-                    {this.state.searchVenuesArray[0]}
-                    {this.state.searchKey}
+                    {arr}
             </div>
         )
     }
