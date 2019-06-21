@@ -5,9 +5,16 @@ export const VENUE_DETAILS = "VENUE_DETAILS"
 export const ASSIGN_SEARCH_INPUTS = "ASSIGN_SEARCH_INPUTS"
 export const REMOVE_EMPTY_VENUES = "REMOVE_EMPTY_VENUES"
 export const GET_MAIN_VENUES = "GET_MAIN_VENUES"
-
+export const GET_EXPLORE_VENUES = "GET_EXPLORE_VENUES"
 export const GET_VENUES = "GET_VENUES"
 
+
+export function getExploreVenues(exploreVenues){
+    return{
+        type:GET_EXPLORE_VENUES,
+        exploreVenues: exploreVenues
+    }
+}
 
 export function getMainVenues(mainVenues){
     return{

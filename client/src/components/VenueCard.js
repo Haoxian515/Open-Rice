@@ -18,7 +18,7 @@ class VenueCard extends Component{
     constructor(props){
         super(props)
         // console.log("EACH CARD")
-        console.log(this.props.venue)
+        // console.log(this.props.venue)
     }
 
 

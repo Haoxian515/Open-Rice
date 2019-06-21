@@ -14,7 +14,8 @@ import Search_Page from "./components/Search_Page.js";
 //ACTION CREATOR
 import {
   getVenueDetails,
-  getMainVenues
+  getMainVenues,
+  getExploreVenues
 } from "./actions/actionCreators";
 
 
@@ -34,11 +35,12 @@ class App extends Component {
       main_venues:[],
       explores_ids:[],
       searchVenuesArray:[],
-      mainVenues:[]
+      mainVenues:[],
+      exploreVenues:[]
     })
 
     this.getFive()
-    // this.getExplore()
+    this.getExplore()
 
   }
 
@@ -46,11 +48,7 @@ class App extends Component {
     fetch("http://localhost:3001/api/getMain")
       .then(response => response.json())
       .then(venues => {
-        // let tempState = this.state;
-        // console.log(res)
-        // console.log(tempState.venues)
         this.props.getMainVenues(venues)
-        // console.log(this.state.mainVenues)
       }).catch(() => console.log("Can’t access response. Blocked by browser?"));
   };
 
@@ -58,25 +56,12 @@ class App extends Component {
     fetch("http://localhost:3001/api/explore")
       .then(response => response.json())
       .then(venues => {
-        this.setState({explores_ids: venues})
-        // console.log(this.state.mainVenues)
+        this.props.getExploreVenues(venues)
+        // console.log(venues)
       }).catch(() => console.log("Can’t access response. Blocked by browser?"));
   };
 
-  // getDataFromDb = async () => {
-  //   fetch("http://localhost:3001/api/getData")
-  //     .then(response => response.json())
-  //     .then(venues => {
-  //       // let tempState = this.state;
-  //       // console.log(res)
-  //       // console.log(tempState.venues)
-  //       this.setState({venues: venues})
-  //       // console.log(this.state.venues)
-  //     })
-  //     .catch(() => console.log("Can’t access response. Blocked by browser?"));
-  // };
 
-  
 
   componentDidMount() {
     console.log("Component did mount")
@@ -91,9 +76,6 @@ class App extends Component {
   render() {
     // debugger
     
-      // let mainVenues = [1,2,3,4,5].map( venue => 
-      //   <VenueCard key={venue} />
-      // )
       console.log("CURRENT STATE")
       // console.log(this.props.mainVenues)let
     let mainVenues = []
@@ -103,12 +85,10 @@ class App extends Component {
           )
       }
 
-      let trendsFiller = [1,2,3,4,5,6,7,8].map( venue => 
-        <Trends key={venue} />
-      )
-      if(this.state.explores_ids.length > 0){
-        trendsFiller = this.state.explores_ids.map( (venue_id) => 
-          <Trends key={venue_id} id={venue_id} /> 
+      let exploreVenues = []
+      if(this.props.exploreVenues !== undefined){
+        exploreVenues = this.props.exploreVenues.map( (venue) => 
+          <Trends  venue={venue} key={venue._id}/> 
           )
       }
     
@@ -124,9 +104,9 @@ class App extends Component {
             </div>
           </div>
           <h2>Explore</h2>
-          {/* <div className="trends-container">
-            {trendsFiller}
-          </div> */}
+          <div className="trends-container">
+            {exploreVenues}
+          </div>
         </div>
       </div>
     )
@@ -154,9 +134,10 @@ function mapStateToProps(reduxState){
     venue_ids: reduxState.venue_ids,
     main_venue_ids: reduxState.main_venue_ids,
     explores_ids: reduxState.explores_ids,
-    mainVenues: reduxState.mainVenues
+    mainVenues: reduxState.mainVenues,
+    exploreVenues: reduxState.exploreVenues
   }
 }
 
-export default connect(mapStateToProps, {getVenueDetails, getMainVenues} )(App);
+export default connect(mapStateToProps, {getVenueDetails, getMainVenues, getExploreVenues} )(App);
 
