@@ -142,7 +142,6 @@ router.get('/getMain', function(req, res) {
 
     console.log("Get main ")
 
-    let result = []
     VenueSchema
         .find( 
             {$and:[{district: {"$in": queryArea}},
@@ -151,49 +150,32 @@ router.get('/getMain', function(req, res) {
         .limit(5)
         .lean()
         .exec(function(err, venues){
-
-            console.log(venues)
             res.send( (venues))
-
         })
 })
 
 // gets venues ids of explore 
 router.get('/explore', function(req, res) {
-    // res.send("trending place holder")
-    request({
-        url: 'https://api.foursquare.com/v2/venues/explore',
-        method: 'GET',
-            qs: {
-            client_id: client_id,
-            client_secret: client_secret,
-            near: "San Francisco, CA" ,
-            v: '20180323',
-            limit:8
-            }
-    },function(error, request, body) { 
-        if (error) {
-            console.error(error);
-        } else {
-            let whatsTrendingList = []
-            //returns arr
-            let responseArr = JSON.parse(body)["response"]["groups"][0]["items"]
-            for(let item of responseArr){
-                // console.log(item["venue"]["name"])
-                let id = item["venue"]["id"]
-                // let name = item["venue"]["name"]
-                // let formattedAddress = item["venue"]["location"]["formattedAddress"]
-                // let venue = {
-                //     id:id,
-                //     name:name,
-                //     formattedAddress,formattedAddress
-                // }
-                whatsTrendingList.push(id)
-            }
-            
-            res.send(whatsTrendingList)
-        }
-    })
+
+    var queryString = "ramen"
+    var queryArea = districts.sanMateo
+
+    console.log("Get Explore ")
+
+    VenueSchema
+        .find( 
+            {$and:[{district: {"$in": queryArea}},
+            {category:{$regex: queryString, $options: 'i'}}
+            ]})
+        .limit(8)
+        .lean()
+        .exec(function(err, venues){
+
+            // console.log(venues)
+            res.send( (venues))
+
+        })
+
 })
 
 
