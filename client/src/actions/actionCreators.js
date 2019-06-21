@@ -4,8 +4,17 @@ export const POPULATE_IDS = "POPULATE_IDS"
 export const VENUE_DETAILS = "VENUE_DETAILS"
 export const ASSIGN_SEARCH_INPUTS = "ASSIGN_SEARCH_INPUTS"
 export const REMOVE_EMPTY_VENUES = "REMOVE_EMPTY_VENUES"
+export const GET_MAIN_VENUES = "GET_MAIN_VENUES"
 
 export const GET_VENUES = "GET_VENUES"
+
+
+export function getMainVenues(mainVenues){
+    return{
+        type:GET_MAIN_VENUES,
+        mainVenues: mainVenues
+    }
+}
 
 export function testing(){
     return {

@@ -5,7 +5,8 @@ import {
     VENUE_DETAILS,
     ASSIGN_SEARCH_INPUTS,
     REMOVE_EMPTY_VENUES,
-    GET_VENUES
+    GET_VENUES,
+    GET_MAIN_VENUES
 
 } from "../actions/actionCreators";
 
@@ -23,6 +24,14 @@ export default function rootReducer(state = initialState, action){
             newState.test = "hello test works!"
             return newState;
         };
+        case GET_MAIN_VENUES:{
+            let newState = {... state}
+            let mainVenues = action.mainVenues
+            return {
+                mainVenues: mainVenues
+            }
+        }
+
         case GET_VENUES:{
             let newState = {... state}
             let searchVenuesArray = action.searchVenuesArray

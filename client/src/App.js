@@ -13,7 +13,8 @@ import Search_Page from "./components/Search_Page.js";
 
 //ACTION CREATOR
 import {
-  getVenueDetails
+  getVenueDetails,
+  getMainVenues
 } from "./actions/actionCreators";
 
 
@@ -30,12 +31,13 @@ class App extends Component {
     this.state = ({
       text: "FROM APP.JS",
       venue_ids: [],
-      main_venue_ids:[],
+      main_venues:[],
       explores_ids:[],
-      searchVenuesArray:[]
+      searchVenuesArray:[],
+      mainVenues:[]
     })
 
-    // this.getFive()
+    this.getFive()
     // this.getExplore()
 
   }
@@ -47,7 +49,7 @@ class App extends Component {
         // let tempState = this.state;
         // console.log(res)
         // console.log(tempState.venues)
-        this.setState({main_venue_ids: venues})
+        this.props.getMainVenues(venues)
         // console.log(this.state.mainVenues)
       }).catch(() => console.log("Can’t access response. Blocked by browser?"));
   };
@@ -89,13 +91,15 @@ class App extends Component {
   render() {
     // debugger
     
-      let mainVenues = [1,2,3,4,5].map( venue => 
-        <VenueCard key={venue} />
-      )
-      
-      if(this.state.main_venue_ids.length > 0){
-        mainVenues = this.state.main_venue_ids.map( (venue_id) => 
-          <VenueCard key={venue_id} id={venue_id} /> 
+      // let mainVenues = [1,2,3,4,5].map( venue => 
+      //   <VenueCard key={venue} />
+      // )
+      console.log("CURRENT STATE")
+      // console.log(this.props.mainVenues)let
+    let mainVenues = []
+      if(this.props.mainVenues !== undefined){
+        mainVenues = this.props.mainVenues.map( (venue) => 
+          <VenueCard venue={venue} key={venue.venue_id} /> 
           )
       }
 
@@ -120,9 +124,9 @@ class App extends Component {
             </div>
           </div>
           <h2>Explore</h2>
-          <div className="trends-container">
+          {/* <div className="trends-container">
             {trendsFiller}
-          </div>
+          </div> */}
         </div>
       </div>
     )
@@ -150,8 +154,9 @@ function mapStateToProps(reduxState){
     venue_ids: reduxState.venue_ids,
     main_venue_ids: reduxState.main_venue_ids,
     explores_ids: reduxState.explores_ids,
+    mainVenues: reduxState.mainVenues
   }
 }
 
-export default connect(mapStateToProps, {getVenueDetails} )(App);
+export default connect(mapStateToProps, {getVenueDetails, getMainVenues} )(App);
 

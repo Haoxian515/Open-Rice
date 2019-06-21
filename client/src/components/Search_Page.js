@@ -38,9 +38,6 @@ class Search_Page_Card extends Component{
                         <p>{this.props.venue.description}</p>
                     </div>
                 </div>
-                <div>
-                    More details expand ^
-                </div>
             </div>
         )
     }
@@ -67,7 +64,7 @@ class Search_Page extends Component {
                < Search_Page_Card venue={venue} />
             )
         }
-        const searchResultFor = <div className="search_detail">Search result for " {this.props.searchKey} "</div>
+        const searchResultFor = <div className="search_detail">Search result for "{this.props.searchKey}" near "{this.props.searchLocation}"</div>
 
         return(
             <div>
