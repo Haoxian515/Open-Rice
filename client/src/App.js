@@ -9,7 +9,7 @@ import NavBar from "./components/NavBar.js";
 import HotTopic from "./components/HotTopic.js";
 import Trends from "./components/Trends.js";
 import Search_Page from "./components/Search_Page.js";
-
+import NavBottom from "./components/NavBottom.js";
 
 //ACTION CREATOR
 import {
@@ -94,7 +94,7 @@ class App extends Component {
     
     const Main_Page = () => (
       <div className="App">
-        <NavBar />
+        {/* <NavBar /> */}
         <div className="content">
           <div className="left-main">
             <HotTopic />
@@ -117,11 +117,13 @@ class App extends Component {
 
     return (
       <BrowserRouter>
+        <NavBar />
         <Switch>
           <Route exact path="/" component={Main_Page}/>
           <Route exact path="/search_result" render={ () => <Search_Page />} />
           <Route exact path="/about" component={About_Page}/>
         </Switch>
+        <NavBottom />
       </BrowserRouter>
     );
   }

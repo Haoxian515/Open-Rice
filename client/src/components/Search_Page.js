@@ -68,9 +68,8 @@ class Search_Page extends Component {
 
         return(
             <div>
-                <NavBar />
-                    {searchResultFor}
-                    {arr}
+                {searchResultFor}
+                {arr}
             </div>
         )
     }
