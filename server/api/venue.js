@@ -117,8 +117,8 @@ router.get('/explore', function(req, res) {
         .limit(8)
         .lean()
         .exec(function(err, venues){
-            console.log("Explore response")
-            console.log(venues)
+            // console.log("Explore response")
+            // console.log(venues)
             res.send( (venues))
 
         })
