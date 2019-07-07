@@ -1,3 +1,8 @@
+exports.all = [
+    "San Francisco",
+    "Berkeley",
+    "San Mateo"
+]
 exports.sanFrancisco = [
     "Outer Richmond",
     "Inner Richmond",

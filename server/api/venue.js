@@ -55,85 +55,6 @@ router.get("/mlab_test", function(req, res){
 
 })
 
-// router.get('/getdata', function(req, res) {
-//     console.log("hello 3001 getting data")
-//     // console.log(req.query)
-//     //foursquare api
-//     var queryString = req.query.input
-//     var queryArea = req.query.queryArea
-//     // console.log(req.query)
-//     var getVenueIds = function(queryString){
-//         request({
-//             url: 'https://api.foursquare.com/v2/venues/search',
-//             method: 'GET',
-//                 qs: {
-//                 client_id: client_id,
-//                 client_secret: client_secret,
-//                 near: queryArea ,
-//                 query: queryString,
-//                 v: '20180323',
-//                 limit: 5
-//                 }
-//         }
-//         ,function(error, request, body) { 
-//                 if (error) {
-//                     console.error(error);
-//                 } else {
-//                     let id = (JSON.parse(body)["response"]["venues"][0]["id"])
-//                     let id_json = JSON.parse(body)["response"]["venues"];
-//                     let ids = []
-//                     // console.log(id_json)
-//                     id_json.forEach(element => {
-//                         // console.log(element["id"])
-//                         ids.push(element["id"])
-//                     });
-//                     // console.log(ids)
-//                     res.send(ids)
-//                 }
-//             }
-//         );
-//     }
-
-//     console.log("current query string " + queryString)
-//     if(queryString !== undefined){
-//         getVenueIds(queryString)
-//     }else{
-//         res.send("Error")
-//     }
-// });
-// GET DATA// GET DATA// GET DATA
-// GET DATA// GET DATA// GET DATA
-// GET DATA// GET DATA// GET DATA
-
-
-//get venue detail
-// https://api.foursquare.com/v2/venues/VENUE_ID
-
-
-//create functions venue detail set up venue
-// router.get("/venue_detail", function(req, res){
-    
-//         var venue_id = req.query.venue_id
-//         request({
-//             url: 'https://api.foursquare.com/v2/venues/' + venue_id,
-//             method: 'GET',
-//                 qs: {
-//                 client_id: client_id,
-//                 client_secret: client_secret,
-//                 v: '20180323',
-//                 VENUE_ID: venue_id
-//                 }
-//         }, function(error , request, body){
-//             let venue_details = JSON.parse(body)["response"]["venue"]
-//             res.send(venue_details)
-//         })
-
-//     // END GET VENUTE DETAIL
-//     // https://fastly.4sqi.net/img/general/ + width960 + /3554975_pgsbwDgSJAPrsxKUmcCU9w3yx_xpV71T820XKEG9Kso.jpg
-// })
-
-
-
 
 // gets venue ids for whats hot
 router.get('/getMain', function(req, res) {
@@ -157,10 +78,36 @@ router.get('/getMain', function(req, res) {
 // gets venues ids of explore 
 router.get('/explore', function(req, res) {
 
-    var queryString = "ramen"
-    var queryArea = districts.sanMateo
+    //Random query + district
+    let queryArr = ["brunch", "dessert", "coffee", "noodles", "dim sum"]
+    let districtAll = districts.all
+    let queryString = ""
+    queryString = queryArr[Math.floor( Math.random() * queryArr.length) ]
+    queryArea = districtAll[Math.floor( Math.random() * districtAll.length) ]
 
-    console.log("Get Explore ")
+    switch(queryArea){
+        case districts.berkeley:
+            queryArea = districts.berkeley;
+            break
+        case districts.sanFrancisco:
+            queryArea = districts.sanFrancisco;
+            break;
+        case districts.sanMateo:
+            queryArea = districts.sanMateo;
+            break
+        default:
+            queryArea = districts.sanFrancisco
+
+    }
+
+    // queryArea = areaArr[0]
+    console.log(districtAll.length);
+    console.log(districtAll);
+    console.log(queryArea);
+    console.log(queryString);
+
+    // debugger
+    // console.log("Get Explore ")
 
     VenueSchema
         .find( 
@@ -170,8 +117,8 @@ router.get('/explore', function(req, res) {
         .limit(8)
         .lean()
         .exec(function(err, venues){
-
-            // console.log(venues)
+            console.log("Explore response")
+            console.log(venues)
             res.send( (venues))
 
         })
