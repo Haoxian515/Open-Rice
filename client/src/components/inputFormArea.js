@@ -79,7 +79,7 @@ class InputFormArea extends Component{
     callAPI() {
         // alert("input form " + this.state.inputValue)
         // e.preventDefault()
-        axios.get("http://localhost:3001/api/mlab_test", {   
+        axios.get("http://localhost:3001/api/search_restaurants", {   
             params: {
                 "input": this.state.inputValue,
                 "queryArea": this.state.searchArea

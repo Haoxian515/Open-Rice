@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const VenueSchema = require("../schema/venueSchema");
+const VenueDetailSchema = require("../schema/venueDetailsSchema")
 const districts = require("../districts/districts")
 
 
@@ -14,14 +15,43 @@ var client_secret = "ED1AYFEPPOBFOUV4KF33ONJUH2Q5BITN0JSBWBQLNLK5UAFI"
 // GET DATA// GET DATA// GET DATA
 // GET DATA// GET DATA// GET DATA
 // GET DATA// GET DATA// GET DATA
+router.get("/all", function(req, res){
+    VenueSchema
+    .find(
+        {district: {"$in": districts.berkeley}}
+    )
+    .lean()
+    .exec(function(err, venues){
+        // console.log(venues)
 
+        let result = []
+        // var detail = {
+        //     "_id" : "",
+        //     "title": ""
+        // }
+        for(ele of venues){
+            let detail = {
+                "_id" : "",
+                "title": "",
+                "area": "Berkeley"
+            }
+            detail["_id"] = ele["_id"];
+            detail["title"] = ele["title"]
+            result.push(detail)
+        }
+        res.send(result)
+    })
+})
 
-router.get("/mlab_test", function(req, res){
+router.get("/search_restaurants", function(req, res){
 
     var queryString = req.query.input
     var queryArea = req.query.queryArea
 
-    console.log("MLAB TEST ROUTE")
+
+
+
+    console.log("search_restaurants")
     // console.log(queryString)
     // console.log(queryArea)
     switch( queryArea ){
@@ -42,10 +72,13 @@ router.get("/mlab_test", function(req, res){
     let result = []
     VenueSchema
         .find( 
-            {$and:[{district: {"$in": searchDistrict}},
-            {category:{$regex: queryString, $options: 'i'}}
+            {$and:[
+                {district: {"$in": searchDistrict}},
+                {category:{$regex: queryString, $options: 'i'}}
             ]})
         .lean()
+        // .limit(10)
+        // .skip(10)
         .exec(function(err, venues){
 
             // console.log(venues)
@@ -101,10 +134,10 @@ router.get('/explore', function(req, res) {
     }
 
     // queryArea = areaArr[0]
-    console.log(districtAll.length);
-    console.log(districtAll);
-    console.log(queryArea);
-    console.log(queryString);
+    // console.log(districtAll.length);
+    // console.log(districtAll);
+    // console.log(queryArea);
+    // console.log(queryString);
 
     // debugger
     // console.log("Get Explore ")
@@ -123,6 +156,19 @@ router.get('/explore', function(req, res) {
 
         })
 
+})
+
+
+router.get("/details/:id", function(req, res){
+    console.log("hello id route")
+    console.log(req.params)
+
+    let tempID = "5d0aef3ae137f31dcd1643c9"
+
+    let venue_id = req.params.id
+    VenueDetailSchema.findById(tempID, function (err, details){
+        res.send(details)
+    });
 })
 
 
