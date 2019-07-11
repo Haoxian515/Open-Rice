@@ -7,7 +7,9 @@ import {
     REMOVE_EMPTY_VENUES,
     GET_VENUES,
     GET_MAIN_VENUES,
-    GET_EXPLORE_VENUES
+    GET_EXPLORE_VENUES,
+    GET_VENUE_DETAILS,
+    SET_DETAIL_ID
 
 } from "../actions/actionCreators";
 
@@ -18,12 +20,21 @@ const initialState = {
     venue_ids:[]
 }
 
+
 export default function rootReducer(state = initialState, action){
     switch(action.type){
         case TEST:{
             let newState = {...state}
             newState.test = "hello test works!"
             return newState;
+        };
+        case SET_DETAIL_ID:{
+            let newState = {... state}
+            let venueDetailID = action.venueDetailID
+            return {
+                ...newState,
+                venueDetailID: venueDetailID
+            }
         };
         case GET_EXPLORE_VENUES:{
             let newState = {... state}

@@ -10,10 +10,11 @@ import HotTopic from "./components/HotTopic.js";
 import Trends from "./components/Trends.js";
 import Search_Page from "./components/Search_Page.js";
 import NavBottom from "./components/NavBottom.js";
+import VenueDetails from "./components/VenueDetails.js";
 
 //ACTION CREATOR
 import {
-  getVenueDetails,
+
   getMainVenues,
   getExploreVenues
 } from "./actions/actionCreators";
@@ -122,6 +123,7 @@ class App extends Component {
           <Route exact path="/" component={Main_Page}/>
           <Route exact path="/search_result" render={ () => <Search_Page />} />
           <Route exact path="/about" component={About_Page}/>
+          <Route path="/venue/*" component = {VenueDetails} />
         </Switch>
         <NavBottom />
       </BrowserRouter>
@@ -141,5 +143,5 @@ function mapStateToProps(reduxState){
   }
 }
 
-export default connect(mapStateToProps, {getVenueDetails, getMainVenues, getExploreVenues} )(App);
+export default connect(mapStateToProps, {getMainVenues, getExploreVenues} )(App);
 

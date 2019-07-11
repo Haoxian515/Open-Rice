@@ -7,7 +7,23 @@ export const REMOVE_EMPTY_VENUES = "REMOVE_EMPTY_VENUES"
 export const GET_MAIN_VENUES = "GET_MAIN_VENUES"
 export const GET_EXPLORE_VENUES = "GET_EXPLORE_VENUES"
 export const GET_VENUES = "GET_VENUES"
+export const GET_VENUE_DETAILS = "GET_VENUE_DETAILS"
+export const SET_DETAIL_ID = "SET_DETAIL_ID"
 
+
+export function setDetailID(venue_id){
+    return {
+        type:SET_DETAIL_ID,
+        venueDetailID: venue_id
+    }
+}
+
+// export function getVenueDetails(venue_id){
+//     return {
+//         type:GET_VENUE_DETAILS,
+//         venueDetailID: venue_id
+//     }
+// }
 
 export function getExploreVenues(exploreVenues){
     return{
@@ -59,12 +75,6 @@ export function getVenueIds(listOfIds){
     }
 }
 
-export function getVenueDetails(venue_details){
-    return {
-        type: VENUE_DETAILS,
-        venue_details: venue_details
-    }
-}
 
 export function removeEmptyVenues(venue_id){
     return {
