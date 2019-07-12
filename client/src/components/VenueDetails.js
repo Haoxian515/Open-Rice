@@ -26,14 +26,18 @@ class VenuDetails extends Component{
                     "venue_id": this.props.venueDetailID
                 }
             }).then( response => {
-                let data = response.data;
-                console.log(data)
-                this.setState({
-                    venuePhotos: response.data["venue_photos"],
-                    venueReviews: response.data["venue_reviews"]
-                }, () => {
-                    console.log(this.state)
-                })
+
+                console.log(response)
+                if(response.data["venue_photos"] !== undefined){
+
+                    this.setState({
+                        venuePhotos: response.data["venue_photos"],
+                        venueReviews: response.data["venue_reviews"]
+                    }, () => {
+                        console.log(this.state)
+                    })
+
+                }
             }).catch(err => {
                 console.log(err)
                 console.log("error trying to request venue details")

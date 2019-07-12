@@ -15,6 +15,11 @@ var client_secret = "ED1AYFEPPOBFOUV4KF33ONJUH2Q5BITN0JSBWBQLNLK5UAFI"
 // GET DATA// GET DATA// GET DATA
 // GET DATA// GET DATA// GET DATA
 // GET DATA// GET DATA// GET DATA
+
+router.get("/connecttest", function(req, res){
+    res.send("CONNECTINO WORKS")
+})
+
 router.get("/all", function(req, res){
     VenueSchema
     .find(
@@ -167,7 +172,19 @@ router.get("/venue_details", function(req, res){
 
     let venue_id = req.query.venue_id
     VenueDetailSchema.findById(venue_id, function (err, details){
-        res.send(details)
+        if(err){
+            console.log("VENUE DETAIL NOT FOUND")
+            res.send({
+                "venue_photos" : "SORRY NOT FOUND",
+                "venue_reviews": "SORRY NOT FOUND"
+            })
+        }
+        console.log("VENUE DETAIL FOUND")
+        if(details === null){
+            res.send({})
+        }else{
+            res.send(details)
+        }
     });
 })
 
