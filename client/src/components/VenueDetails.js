@@ -46,18 +46,21 @@ class VenuDetails extends Component{
 
     render(){
 
-        let reviews = this.state.venueReviews.map( review => 
-            <div>
-                {review}
-                <br/>
-                <br/>
-                <br/>
-            </div>
-        )
-
+        let reviews = []
+        if(this.state.venueReviews.length > 1){
+            reviews = this.state.venueReviews.map( review => 
+                <div>
+                    {review}
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            )
+        }else{
+            reviews.push("SORRY NO MORE DETAIL FOUND")
+        }
         return(
             <div>
-                HELLO FROM VENUE DETAILS
                 {reviews}
                 {/* {this.props.venueDetailID} */}
             </div>

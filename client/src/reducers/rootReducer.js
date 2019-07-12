@@ -9,7 +9,8 @@ import {
     GET_MAIN_VENUES,
     GET_EXPLORE_VENUES,
     GET_VENUE_DETAILS,
-    SET_DETAIL_ID
+    SET_DETAIL_ID,
+    SET_REDIRECT_STATE
 
 } from "../actions/actionCreators";
 
@@ -27,6 +28,14 @@ export default function rootReducer(state = initialState, action){
             let newState = {...state}
             newState.test = "hello test works!"
             return newState;
+        };
+        case SET_REDIRECT_STATE:{
+            let newState = {... state}
+            let redirectState = action.redirectState
+            return {
+                ...newState,
+                redirectState: redirectState
+            }
         };
         case SET_DETAIL_ID:{
             let newState = {... state}

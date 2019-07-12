@@ -10,6 +10,14 @@ export const GET_VENUES = "GET_VENUES"
 export const GET_VENUE_DETAILS = "GET_VENUE_DETAILS"
 export const SET_DETAIL_ID = "SET_DETAIL_ID"
 
+export const SET_REDIRECT_STATE = "SET_REDIRECT_STATE"
+
+export function setRedirectState(redirectState){
+    return {
+        type:SET_REDIRECT_STATE,
+        redirectState: redirectState
+    }
+}
 
 export function setDetailID(venue_id){
     return {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 
 import axios from "axios";
@@ -8,7 +8,8 @@ import axios from "axios";
 import {
     getVenueIds,
     assignSearchInputs,
-    getVenues
+    getVenues,
+    setRedirectState
 } from "../actions/actionCreators";
 
 import "./inputFormArea.css"
@@ -24,8 +25,10 @@ class InputFormArea extends Component{
             searchArea: "San Francisco",
 
             queryOptions: ["Brunch", "Coffee", "Dessert", "Noodles","Dim Sum" ],
-            searchAreaOptions: ["San Francisco", "Berkeley" , "San Mateo"]
+            searchAreaOptions: ["San Francisco", "Berkeley" , "San Mateo"],
 
+            redirect: false
+            
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,10 +73,11 @@ class InputFormArea extends Component{
         e.preventDefault()
         // console.log("Calling Api")
         this.props.assignSearchInputs(this.state.inputValue, this.state.searchArea)
-        this.props.history.push("search_result");
-
         this.callAPI()
-        // this.props.history.push("about");
+
+        this.setState({redirect:true})
+        
+
     }
 
     callAPI() {
@@ -87,15 +91,17 @@ class InputFormArea extends Component{
         }).then( response => {
             this.props.getVenues(response.data)
             console.log("JUST GOT DATA")
-
+            
             // this.props.history.push("search_result");
-        }
-        ).catch(err => {
+        })
+        .catch(err => {
             console.log("ERROR: " + err)
         })
     }
 
     render(){
+
+        const {redirect} = this.state;
 
         let inputOptions = [];
         let searchAreaOptions = [];
@@ -108,10 +114,14 @@ class InputFormArea extends Component{
             <OptionsList option={option} />
         )
 
+        if(redirect){
+            return <Redirect to='/search_result'/>;
+        }
 
         return(
+
             <div id="input-form">
-                <form id="form" onSubmit={this.handleSubmit}>
+                <form id="form" onClick={this.handleSubmit}>
 
                     <input className="input-style" type="text" name="inputQ" list="inputQ"
                             value={this.state.inputValue}
