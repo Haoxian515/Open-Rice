@@ -18,7 +18,7 @@ import {
 const initialState = {
     test:"hello TEST",
     venues:[],
-    venue_ids:[]
+    venue_ids:[],
 }
 
 

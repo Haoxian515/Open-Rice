@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect, withRouter, Link} from 'react-router-dom';
 
 
 import axios from "axios";
@@ -75,7 +75,8 @@ class InputFormArea extends Component{
         this.props.assignSearchInputs(this.state.inputValue, this.state.searchArea)
         this.callAPI()
 
-        this.setState({redirect:true})
+        // this.props.setRedirectState(true)
+        this.props.history.push('/search_result')
         
 
     }
@@ -101,7 +102,6 @@ class InputFormArea extends Component{
 
     render(){
 
-        const {redirect} = this.state;
 
         let inputOptions = [];
         let searchAreaOptions = [];
@@ -114,9 +114,7 @@ class InputFormArea extends Component{
             <OptionsList option={option} />
         )
 
-        if(redirect){
-            return <Redirect to='/search_result'/>;
-        }
+    
 
         return(
 
@@ -157,8 +155,9 @@ function mapStateToProps(reduxState){
 
     return {
         // venue_ids: reduxState.venue_ids,
-        inputValue: reduxState.inputKey
+        inputValue: reduxState.inputKey,
+        redirect: reduxState.redirecState
     }
   }
 
-export default connect(mapStateToProps, {getVenues, assignSearchInputs} )(withRouter(InputFormArea));
+export default connect(mapStateToProps, {getVenues, assignSearchInputs, setRedirectState} )(withRouter(InputFormArea));
