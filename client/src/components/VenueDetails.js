@@ -34,7 +34,7 @@ class VenuDetails extends Component{
                         venuePhotos: response.data["venue_photos"],
                         venueReviews: response.data["venue_reviews"]
                     }, () => {
-                        console.log(this.state)
+                        // console.log(this.state)
                     })
 
                 }
@@ -57,7 +57,8 @@ class VenuDetails extends Component{
                 </div>
             )
         }else{
-            reviews.push("SORRY NO MORE DETAIL FOUND")
+            // reviews.push("SORRY NO MORE DETAIL FOUND")
+            return(<div>No more details found ... </div>)
         }
         return(
             <div>

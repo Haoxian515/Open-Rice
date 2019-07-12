@@ -82,18 +82,18 @@ class App extends Component {
     let mainVenues = []
       if(this.props.mainVenues !== undefined){
         mainVenues = this.props.mainVenues.map( (venue) => 
-          <VenueCard venue={venue} key={venue.venue_id} /> 
+          <VenueCard key={venue._id} venue={venue} /> 
           )
       }
 
       let exploreVenues = []
       if(this.props.exploreVenues !== undefined){
         exploreVenues = this.props.exploreVenues.map( (venue) => 
-          <Trends  venue={venue} key={venue._id}/> 
+          <Trends  key={venue._id} venue={venue} /> 
           )
       }
     
-    const Main_Page = () => (
+    const Main_Page = () => ( 
       <div className="App">
         {/* <NavBar /> */}
         <div className="content">

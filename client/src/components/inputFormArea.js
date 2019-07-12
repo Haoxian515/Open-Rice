@@ -106,12 +106,12 @@ class InputFormArea extends Component{
         let inputOptions = [];
         let searchAreaOptions = [];
         
-        inputOptions = this.state.queryOptions.map( option => 
-            <OptionsList option={option} />
+        inputOptions = this.state.queryOptions.map( (option,index) => 
+            <OptionsList key={index} option={option} />
         )
 
-        searchAreaOptions = this.state.searchAreaOptions.map( option => 
-            <OptionsList option={option} />
+        searchAreaOptions = this.state.searchAreaOptions.map( (option, index) => 
+            <OptionsList key={index} option={option} />
         )
 
     
@@ -119,7 +119,7 @@ class InputFormArea extends Component{
         return(
 
             <div id="input-form">
-                <form id="form" onClick={this.handleSubmit}>
+                <form id="form" onSubmit={this.handleSubmit}>
 
                     <input className="input-style" type="text" name="inputQ" list="inputQ"
                             value={this.state.inputValue}
