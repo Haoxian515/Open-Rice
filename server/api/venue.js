@@ -161,12 +161,12 @@ router.get('/explore', function(req, res) {
 
 router.get("/venue_details", function(req, res){
     console.log("hello id route")
-    console.log(req.params)
+    // console.log(req.params)
 
-    let tempID = "5d0aef3ae137f31dcd1643c9"
+    // let tempID = "5d0aef3ae137f31dcd1643c9"
 
     let venue_id = req.query.venue_id
-    VenueDetailSchema.findById(tempID, function (err, details){
+    VenueDetailSchema.findById(venue_id, function (err, details){
         res.send(details)
     });
 })
