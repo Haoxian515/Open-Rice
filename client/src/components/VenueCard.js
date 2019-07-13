@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import axios from "axios";
 
 //ACTION CREATORS
-// import {
-//     getVenueDetails
-//   } from "../actions/actionCreators";
+import {
+    setDetailID,
+    setCurrentVenueName
+} from "../actions/actionCreators";
 
 //CSS
 import "./VenueCard.css";
@@ -17,14 +19,24 @@ class VenueCard extends Component{
 
     constructor(props){
         super(props)
-        // console.log("EACH CARD")
+        console.log("Venue Card Componenet")
+        console.log(this.props.venue._id)
         // console.log(this.props.venue)
     }
 
+    handleOnClick(){
+        console.log(this.props.venue._id)
+        this.props.setCurrentVenueName(this.props.venue.title)
+        this.props.setDetailID(this.props.venue._id)
+
+        let path = "/venue/" + this.props.venue._id
+        // // console.log(path)
+        this.props.history.push(path);
+    }
 
     render(){
         return(
-            <div className="card" >
+            <div className="card" onClick={this.handleOnClick.bind(this)}>
                 <img className="card-top" src={this.props.venue.photo} 
 
                     alt={image}
@@ -46,4 +58,4 @@ function mapStateToProps(reduxState){
     }
 }
 
-export default connect(mapStateToProps,{} )(VenueCard);
+export default connect(mapStateToProps,{setDetailID, setCurrentVenueName} )( withRouter(VenueCard) );

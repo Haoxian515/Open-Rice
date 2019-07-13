@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import axios from "axios";
 
+import {withRouter} from "react-router-dom";
 
 import "./Trends.css"
+
+import {
+    setDetailID,
+    setCurrentVenueName
+} from "../actions/actionCreators";
 
 import image from "../assets/matcha.jpg"
 
@@ -20,10 +25,19 @@ class Trends extends Component{
         }
     }
 
+    handleOnClick(){
+        this.props.setCurrentVenueName(this.props.venue.title)
+        this.props.setDetailID(this.props.venue._id)
+        
+        let path = "/venue/" + this.props.venue._id
+        // // console.log(path)
+        this.props.history.push(path);
+    }
+
 
     render(){
         return(
-            <div className="trends" >
+            <div className="trends" onClick={this.handleOnClick.bind(this)} >
                 <img className="trend-img" src={this.props.venue.photo} 
                     alt={image}
                 />
@@ -34,7 +48,9 @@ class Trends extends Component{
 }
 
 function mapStateToProps(){
-    return {}
+    return {
+        
+    }
 }
 
-export default connect(mapStateToProps,{} )(Trends)
+export default connect(mapStateToProps,{setDetailID, setCurrentVenueName} )( withRouter(Trends) )
