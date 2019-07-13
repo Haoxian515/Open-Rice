@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import image from "../assets/hotpot.jpg";
 import axios from "axios"
 
-
+import "./VenueDetails.css"
 
 class VenuDetails extends Component{
 
@@ -47,23 +47,32 @@ class VenuDetails extends Component{
     render(){
 
         let reviews = []
+        let photos = []
         if(this.state.venueReviews.length > 1){
             reviews = this.state.venueReviews.map( review => 
-                <div>
+                <div className="details-card">
                     {review}
-                    <br/>
-                    <br/>
-                    <br/>
                 </div>
+            )
+
+            photos = this.state.venuePhotos.map( photo_src => 
+                <img className="detail-photo" width="auto" height="auto" src= {photo_src} />
             )
         }else{
             // reviews.push("SORRY NO MORE DETAIL FOUND")
             return(<div>No more details found ... </div>)
         }
         return(
-            <div>
-                {reviews}
-                {/* {this.props.venueDetailID} */}
+            <div className="venue-details">
+
+                <div className="venue-details-photos" >
+                    {photos}
+                </div>
+
+                <div className="venue-details-reviews">
+                    {reviews}
+                </div>
+
             </div>
         )
     }
