@@ -9,8 +9,8 @@
     margin: 0.5rem;
 }
 .search_page_card img{
-    width: 30%;
-    height: 30%;
+    width: 25%;
+    height: 25%;
 }
 .search_page_card{
     min-width: 32rem;
@@ -19,6 +19,7 @@
     background-color: white;
     margin:  0 32rem 1rem 2rem;
     padding: 1em ;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.1); 
 }
 
 .search_page_card_preview{

@@ -64,7 +64,7 @@ class VenuDetails extends Component{
         }
         return(
             <div className="venue-details">
-
+                <h1>{this.props.currentVenueName}</h1>
                 <div className="venue-details-photos" >
                     {photos}
                 </div>
@@ -81,7 +81,8 @@ class VenuDetails extends Component{
 
 function mapStateToProps(reduxState){
     return {
-        venueDetailID: reduxState.venueDetailID
+        venueDetailID: reduxState.venueDetailID,
+        currentVenueName: reduxState.currentVenueName
     }
 }
 export default connect(mapStateToProps, {} )(VenuDetails);

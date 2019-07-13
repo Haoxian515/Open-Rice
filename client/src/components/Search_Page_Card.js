@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import { withRouter} from 'react-router-dom';
 
 import {
-    setDetailID
+    setDetailID,
+    setCurrentVenueName
 } from "../actions/actionCreators";
 
 class Search_Page_Card extends Component{
@@ -21,21 +22,11 @@ class Search_Page_Card extends Component{
         // console.log("hello getVenueDetails")
         // // console.log(this.props.venue._id)
         this.props.setDetailID(this.props.venue._id)
+        this.props.setCurrentVenueName(this.props.venue.title)
 
         let path = "/venue/" + this.props.venue._id
         // // console.log(path)
         this.props.history.push(path);
-
-        // axios.get("http://localhost:3001/api/venue_details",{
-        //     params:{
-        //         "venue_id": this.props.venue._id
-        //     }
-        // }).then( response => {
-        //     console.log(response.data)
-        // }).catch(err => {
-        //     console.log(err)
-        //     console.log("error trying to request venue details")
-        // })
 
         // REDIRECT PAGE
         
@@ -71,4 +62,4 @@ function mapStateToProps(reduxState){
     }
 }
 
-export default connect(mapStateToProps, {setDetailID} )( withRouter(Search_Page_Card) );
+export default connect(mapStateToProps, {setDetailID, setCurrentVenueName} )( withRouter(Search_Page_Card) );

@@ -9,8 +9,16 @@ export const GET_EXPLORE_VENUES = "GET_EXPLORE_VENUES"
 export const GET_VENUES = "GET_VENUES"
 export const GET_VENUE_DETAILS = "GET_VENUE_DETAILS"
 export const SET_DETAIL_ID = "SET_DETAIL_ID"
+export const SET_CURRENT_VENUE_NAME = "SET_CURRENT_VENUE_NAME"
 
 export const SET_REDIRECT_STATE = "SET_REDIRECT_STATE"
+
+export function setCurrentVenueName(currentVenueName){
+    return{
+        type: SET_CURRENT_VENUE_NAME,
+        currentVenueName: currentVenueName
+    }
+}
 
 export function setRedirectState(redirectState){
     return {
