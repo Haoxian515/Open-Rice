@@ -17,10 +17,10 @@ class NavBar extends Component{
                         <Link className="text-link" to="/"><h3>Open Rice</h3></Link>
                     </div>
                     <div className="nav-item">
-                        <h3>Offers</h3>
+                        {/* <h3>Offers</h3> */}
                     </div>
                     <div className="nav-item">
-                        <h3>Recipes</h3>
+                        {/* <h3>Recipes</h3> */}
                     </div>
                 </div>
                 <InputFormArea />

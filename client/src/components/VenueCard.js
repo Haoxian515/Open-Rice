@@ -28,7 +28,7 @@ class VenueCard extends Component{
         console.log(this.props.venue._id)
         this.props.setCurrentVenueName(this.props.venue.title)
         this.props.setDetailID(this.props.venue._id)
-
+        
         let path = "/venue/" + this.props.venue._id
         // // console.log(path)
         this.props.history.push(path);

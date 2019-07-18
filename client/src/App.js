@@ -125,7 +125,7 @@ class App extends Component {
           <Route exact path="/about" component={About_Page}/>
           <Route path="/venue/*" component = {VenueDetails} />
         </Switch>
-        <NavBottom />
+        {/* <NavBottom /> */}
       </BrowserRouter>
     );
   }
