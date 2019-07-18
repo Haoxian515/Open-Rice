@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   getFive = async() => {
-    fetch("/api/getMain", {'mode': 'no-cors'})
+    fetch("https://localhost:5000/api/getMain", {'mode': 'no-cors'})
       .then(response => response.json())
       .then(venues => {
         this.props.getMainVenues(venues)
@@ -58,7 +58,7 @@ class App extends Component {
   };
 
   getExplore = async() => {
-    fetch("/api/explore", {'mode': 'no-cors'})
+    fetch("https://localhost:5000/api/explore", {'mode': 'no-cors'})
       .then(response => response.json())
       .then(venues => {
         this.props.getExploreVenues(venues)
