@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import { BrowserRouter, Route, Link , Switch, Redirect} from "react-router-dom";
 
-const proxy = require("http-proxy-middleware");
-
 
 //COMPONENETS
 import Venue from "./components/venue.js";
