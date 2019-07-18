@@ -13,7 +13,7 @@ const TestSchema = require("./schema/testSchema")
 
 const app = express();
 const router = express.Router();
-const port = 3001 || process.env.PORT
+const port = process.env.PORT || 3001
 
 app.use(cors())
 
