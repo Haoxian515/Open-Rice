@@ -19,9 +19,9 @@ app.use(cors())
 
 
 // Set up mongodb
-const dbRoute = "mongodb://haoxian:M)M)club321@ds163905.mlab.com:63905/open_rice"
+// const dbRoute = "mongodb://haoxian:M)M)club321@ds163905.mlab.com:63905/open_rice"
 mongoose.connect(
-    dbRoute,
+    process.env.MONGODB_URI,
     {
         useNewUrlParser: true
     }
