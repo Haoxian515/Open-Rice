@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
+const proxy = require("http-proxy-middleware");
 
 
 //MODULES
@@ -44,6 +45,7 @@ app.all('*', function(req, res, next) {
 });
 
 //APP USE
+app.use(proxy("/api/*", { target: "http://localhost:5000/" }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
