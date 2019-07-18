@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
-const proxy = require("http-proxy-middleware");
 
 
 //MODULES
@@ -14,7 +13,7 @@ const TestSchema = require("./schema/testSchema")
 
 const app = express();
 const router = express.Router();
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 80
 
 app.use(cors())
 
@@ -37,15 +36,14 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 // app.use(cors);
 
 app.all('*', function(req, res, next) {
-    var origin = req.get('origin'); 
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
+     var origin = req.get('origin'); 
+     res.header('Access-Control-Allow-Origin', origin);
+     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+     res.header('Access-Control-Allow-Headers', 'Content-Type');
+     next();
 });
 
 //APP USE
-app.use(proxy("/api/*", { target: "http://localhost:5000/" }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
