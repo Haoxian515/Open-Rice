@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 
+require('dotenv').config()
+
 
 //MODULES
 const venueRoute = require("./api/venue");
@@ -13,15 +15,16 @@ const TestSchema = require("./schema/testSchema")
 
 const app = express();
 const router = express.Router();
-const port = 3001 || process.env.PORT
+const port = process.env.PORT || 5000
 
 app.use(cors())
 
 
 // Set up mongodb
-const dbRoute = "mongodb://haoxian:M)M)club321@ds163905.mlab.com:63905/open_rice"
+// console.log(process.env.MONGODB)
+// const dbRoute = "mongodb://haoxian:M)M)club321@ds163905.mlab.com:63905/open_rice"
 mongoose.connect(
-    dbRoute,
+    process.env.MONGODB,
     {
         useNewUrlParser: true
     }
