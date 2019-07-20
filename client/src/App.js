@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import { BrowserRouter, Route, Link , Switch, Redirect} from "react-router-dom";
+
+
 //COMPONENETS
 import Venue from "./components/venue.js";
 // import InputFormArea from './components/inputFormArea.js';
@@ -23,13 +25,15 @@ import {
 // CSS
 import "./components/App.css"
 // const axios = require("axios");
-
+import dotenv from "dotenv"
+const env = dotenv.config().parsed;
 
 class App extends Component {
 
   constructor(props){
     super(props)
 
+    console.log("ENV VARIABLE")
     this.state = ({
       text: "FROM APP.JS",
       venue_ids: [],
@@ -39,14 +43,14 @@ class App extends Component {
       mainVenues:[],
       exploreVenues:[]
     })
-
     this.getFive()
     this.getExplore()
 
   }
 
-  getFive = async() => {
-    fetch("http://localhost:3001/api/getMain")
+  getFive = async(asd) => {
+
+    fetch(process.env.REACT_APP_ROOT_ROUTE + "/api/getMain")
       .then(response => response.json())
       .then(venues => {
         this.props.getMainVenues(venues)
@@ -54,7 +58,7 @@ class App extends Component {
   };
 
   getExplore = async() => {
-    fetch("http://localhost:3001/api/explore")
+    fetch(process.env.REACT_APP_ROOT_ROUTE+ "/api/explore")
       .then(response => response.json())
       .then(venues => {
         this.props.getExploreVenues(venues)
@@ -65,6 +69,7 @@ class App extends Component {
 
 
   componentDidMount() {
+    
     console.log("Component did mount")
     console.log(this.state.mainVenues)
   }

@@ -25,7 +25,7 @@ class Search_Page_Card extends Component{
         this.props.setCurrentVenueName(this.props.venue.title)
 
         let path = "/venue/" + this.props.venue._id
-        // // console.log(path)
+        console.log(path)
         this.props.history.push(path);
 
         // REDIRECT PAGE

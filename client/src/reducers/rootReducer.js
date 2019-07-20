@@ -20,6 +20,7 @@ const initialState = {
     test:"hello TEST",
     venues:[],
     venue_ids:[],
+    ROOTROUTE: "https://open-rice-api.herokuapp.com"
 }
 
 

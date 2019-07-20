@@ -21,7 +21,7 @@ class VenuDetails extends Component{
 
 
     getDetails(){
-        axios.get("http://localhost:3001/api/venue_details",{
+        axios.get(process.env.REACT_APP_ROOT_ROUTE + "/api/venue_details",{
                 params:{
                     "venue_id": this.props.venueDetailID
                 }

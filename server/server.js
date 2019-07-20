@@ -21,8 +21,6 @@ app.use(cors())
 
 
 // Set up mongodb
-// console.log(process.env.MONGODB)
-// const dbRoute = "mongodb://haoxian:M)M)club321@ds163905.mlab.com:63905/open_rice"
 mongoose.connect(
     process.env.MONGODB,
     {
