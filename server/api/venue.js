@@ -57,8 +57,8 @@ router.get("/search_restaurants", function(req, res){
 
 
     console.log("search_restaurants")
-    // console.log(queryString)
-    // console.log(queryArea)
+    console.log(queryString)
+    console.log(queryArea)
     switch( queryArea ){
         case "San Francisco":
             searchDistrict = districts.sanFrancisco
@@ -77,16 +77,23 @@ router.get("/search_restaurants", function(req, res){
     let result = []
     VenueSchema
         .find( 
-            {$and:[
-                {district: {"$in": searchDistrict}},
-                {category:{$regex: queryString, $options: 'i'}}
-            ]})
+            {$or:[
+                {$and:[
+                    {district: {"$in": searchDistrict}},
+                    {category:{$regex: queryString, $options: 'i'}},
+                ]},
+                {$and:[
+                    {district: {"$in": searchDistrict}},
+                    {title:{$regex: queryString, $options: 'i'}},
+                ]},
+            ]}
+            )
         .lean()
         // .limit(10)
         // .skip(10)
         .exec(function(err, venues){
 
-            // console.log(venues)
+            console.log(venues)
             res.send( (venues))
 
         })
